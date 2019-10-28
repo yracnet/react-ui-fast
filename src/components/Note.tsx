@@ -3,7 +3,7 @@ import './Note.scss';
 import { Icon } from './Icon';
 import Help from './Help';
 
-export interface Message {
+export interface NoteMessage {
     type: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark',
     icon?: string,
     message: string
@@ -13,7 +13,7 @@ export interface NoteProps {
     className?: string,
     type: 'note-input' | 'note-a',
     hide?: boolean,
-    messages?: string | Message | Array<Message | string>
+    messages?: string | NoteMessage | Array<NoteMessage | string>
 }
 
 export const Note: React.FC<NoteProps> = (props) => {

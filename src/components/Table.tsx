@@ -1,10 +1,10 @@
 import React from 'react';
 import help from './Help';
-import './DataTable.scss';
+import './Table.scss';
 import { Icon } from './Icon';
 import { Pager, PagerValue } from './Pager';
 
-export interface ConfigValue {
+export interface TableConfig {
     column?: string,
     sort?: 'asc' | 'desc' | 'none',
     index?: number,
@@ -16,14 +16,14 @@ export interface TableProps {
     values: Array<any>,
     select?: any | Array<any>,
     onSelect?: (e: any) => void,
-    config?: ConfigValue,
-    onConfig?: (e: ConfigValue) => void,
+    config?: TableConfig,
+    onConfig?: (e: TableConfig) => void,
     variant?: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark',
     hide?: boolean,
     children: any | Array<any>
 }
 
-export class DataTable extends React.PureComponent<TableProps, ConfigValue> {
+export class Table extends React.PureComponent<TableProps, TableConfig> {
     constructor(props: TableProps) {
         super(props);
         this.state = {};
@@ -35,7 +35,7 @@ export class DataTable extends React.PureComponent<TableProps, ConfigValue> {
         let { onConfig: onSort } = this.props;
         if (onSort) {
             let sort = this.state.sort;
-            let configValue: ConfigValue = {
+            let configValue: TableConfig = {
                 column,
                 sort: sort === 'none' ? 'asc' : sort === 'asc' ? 'desc' : 'none'
             };
@@ -47,7 +47,7 @@ export class DataTable extends React.PureComponent<TableProps, ConfigValue> {
     onPagerData(value: PagerValue) {
         let { onConfig } = this.props;
         if (onConfig) {
-            let configValue: ConfigValue = {
+            let configValue: TableConfig = {
                 index: value.index,
                 size: value.size,
             };
@@ -115,7 +115,7 @@ export class DataTable extends React.PureComponent<TableProps, ConfigValue> {
 
         let className = 'table table-striped table-sm table-hover table-' + variant;
         return (
-            <div className="table-responsive-sm DataTable">
+            <div className="table-responsive-sm Table">
                 <table className={className}>
                     <thead className='thead-dark'>
                         <tr>{headRows}</tr>

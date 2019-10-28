@@ -47,15 +47,15 @@ const OPTION = {
 };
 
 
-export interface FilterValue {
+export interface FilterTextValue {
     operator?: string,
     value?: any
 }
 
-export interface FilterProps {
+export interface FilterTextProps {
     name: string,
-    value?: FilterValue,
-    onChange: (name: string, value: FilterValue) => void,
+    value?: FilterTextValue,
+    onChange: (name: string, value: FilterTextValue) => void,
     option?: 'all' | 'number' | 'string' | 'date',
     //onConvert?: (value: any) => any,
     //onFormat?: (value: any) => string,
@@ -63,8 +63,8 @@ export interface FilterProps {
     hide?: boolean
 }
 
-export class FilterText extends React.PureComponent<FilterProps> {
-    constructor(props: FilterProps) {
+export class FilterText extends React.PureComponent<FilterTextProps> {
+    constructor(props: FilterTextProps) {
         super(props);
         this.state = {
             operator: '',
@@ -85,7 +85,7 @@ export class FilterText extends React.PureComponent<FilterProps> {
         this.onChangeInvoke({ value: '', operator: 'none' });
     }
 
-    onChangeInvoke(state: FilterValue) {
+    onChangeInvoke(state: FilterTextValue) {
         this.setState(state, () => {
             let { onChange, name } = this.props;
             onChange(name, this.state);
@@ -97,7 +97,7 @@ export class FilterText extends React.PureComponent<FilterProps> {
         if (hide === true) {
             return null;
         }
-        let filter: FilterValue = value || {
+        let filter: FilterTextValue = value || {
             operator: '',
             value: ''
         };

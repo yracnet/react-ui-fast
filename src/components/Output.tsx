@@ -1,7 +1,7 @@
 import React from 'react';
 import "./Output.scss";
 
-export interface OutputProps {
+export interface OutputTextProps {
     name: string,
     value?: any,
     onFormat?: (value: any) => string,
@@ -9,7 +9,7 @@ export interface OutputProps {
     hide?: boolean
 }
 
-export const OutputText: React.FC<OutputProps> = (props) => {
+export const OutputText: React.FC<OutputTextProps> = (props) => {
     if (props.hide === true) {
         return null;
     }

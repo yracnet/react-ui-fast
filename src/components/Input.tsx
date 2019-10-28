@@ -1,27 +1,27 @@
 import React from 'react';
 import { Note } from './Note';
 
-export interface InputMessage {
+export interface InputTextMessage {
     type: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark',
     icon?: string,
     message: string
 }
 
-export interface InputValue {
+export interface InputTextValue {
     value?: any,
     state: 'error' | 'success' | 'message' | 'none',
-    message?: string | InputMessage
+    message?: string | InputTextMessage
 }
 
-export interface InputProps {
+export interface InputTextProps {
     name: string,
     value?: any,
-    onChange?: (name: string, e: InputValue) => void,
-    onValidate?: Array<(name: string, event: InputValue) => InputValue>;
+    onChange?: (name: string, e: InputTextValue) => void,
+    onValidate?: Array<(name: string, event: InputTextValue) => InputTextValue>;
     //onConvert?: (value: any) => any,
     //onFormat?: (value: any) => string,
     type?: "string" | "number" | "date",
-    message?: string | InputMessage,
+    message?: string | InputTextMessage,
     title?: string,
     placeholder?: string,
     addonPrefix?: string,
@@ -30,7 +30,7 @@ export interface InputProps {
     disabled?: boolean
 }
 
-export const InputText: React.FC<InputProps> = (props) => {
+export const InputText: React.FC<InputTextProps> = (props) => {
     if (props.hide === true) {
         return null;
     }
@@ -43,7 +43,7 @@ export const InputText: React.FC<InputProps> = (props) => {
 
     let onChangeInvoke = function (newValue: any) {
         let { name, onChange, onValidate } = props;
-        let inputValue: InputValue = { state: 'none', value: newValue };
+        let inputValue: InputTextValue = { state: 'none', value: newValue };
         if (onValidate) {
             onValidate.every(it => {
                 inputValue = it(name, inputValue)
