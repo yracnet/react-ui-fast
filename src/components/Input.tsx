@@ -47,7 +47,6 @@ export const InputText: React.FC<InputTextProps> = (props) => {
         if (onValidate) {
             onValidate.every(it => {
                 inputValue = it(name, inputValue)
-                console.log('response->>', name, ': ', inputValue);
                 return inputValue.state === 'none';
             });
         }
@@ -62,7 +61,7 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     let addonPosfixHtml = addonPosfix ? <div className="input-group-prepend"><span className="input-group-text">{addonPosfix}</span></div> : null;
     let valueString = value ? value.toString() : '';
 
-    let messageHtml = <Note messages={message} type="note-input" ></Note>;
+    let messageHtml = <Note message={message} type="note-input" ></Note>;
     //has-warning
     return (
         <div className="input-group">

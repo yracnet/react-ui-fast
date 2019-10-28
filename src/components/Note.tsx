@@ -13,14 +13,14 @@ export interface NoteProps {
     className?: string,
     type: 'note-input' | 'note-a',
     hide?: boolean,
-    messages?: string | NoteMessage | Array<NoteMessage | string>
+    message?: string | NoteMessage | Array<NoteMessage | string>
 }
 
 export const Note: React.FC<NoteProps> = (props) => {
     if (props.hide === true) {
         return null;
     }
-    let messages = Help.parseArray(props.messages).map(it => typeof it === 'string' ? { type: 'info', message: it } : it);
+    let messages = Help.parseArray(props.message).map(it => typeof it === 'string' ? { type: 'info', message: it, icon: 'info' } : it);
     if (!messages.length) {
         return null;
     }
