@@ -1,0 +1,10 @@
+.DataTable{
+  .Sort{
+    cursor: pointer;
+  }
+  .Pager > *{
+    margin: 0;
+    padding: 0;
+    float: right;
+  }
+}
