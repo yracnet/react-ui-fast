@@ -9,7 +9,7 @@ export interface InputTextMessage {
 
 export interface InputTextValue {
     value?: any,
-    state: 'error' | 'success' | 'message' | 'none',
+    state: 'error' | 'success' | 'info' | 'none',
     message?: string | InputTextMessage
 }
 
