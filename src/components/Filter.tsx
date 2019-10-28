@@ -57,8 +57,8 @@ export interface FilterTextProps {
     value?: FilterTextValue,
     onChange: (name: string, value: FilterTextValue) => void,
     option?: 'all' | 'number' | 'string' | 'date',
-    //onConvert?: (value: any) => any,
-    //onFormat?: (value: any) => string,
+    onConvert?: (value?: string) => any,
+    onFormat?: (value?: any) => string,
     label?: string,
     hide?: boolean
 }
@@ -77,6 +77,9 @@ export class FilterText extends React.PureComponent<FilterTextProps> {
 
     inputChange(event: React.FormEvent<HTMLInputElement | HTMLSelectElement>) {
         let { name, value } = event.currentTarget;
+        if (this.props.onConvert) {
+            value = this.props.onConvert(value);
+        }
         let state = { [name]: value };
         this.onChangeInvoke(state);
     }
@@ -101,6 +104,9 @@ export class FilterText extends React.PureComponent<FilterTextProps> {
             operator: '',
             value: ''
         };
+        if (this.props.onFormat) {
+            filter.value = this.props.onFormat(filter.value);
+        }
         option = option || 'string';
         let htmlOptions = OPTION[option].map((it, i) => <option key={i} value={it.value} >{it.label}</option>);
         let htmlLabel = label ? <div className="input-group-append"><label className="input-group-text">{label}:</label></div> : null;

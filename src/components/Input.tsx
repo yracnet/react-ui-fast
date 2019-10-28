@@ -18,8 +18,8 @@ export interface InputTextProps {
     value?: any,
     onChange?: (name: string, e: InputTextValue) => void,
     onValidate?: Array<(name: string, event: InputTextValue) => InputTextValue>;
-    //onConvert?: (value: any) => any,
-    //onFormat?: (value: any) => string,
+    onConvert?: (value?: string) => any,
+    onFormat?: (value?: any) => string,
     type?: "string" | "number" | "date",
     message?: string | InputTextMessage,
     title?: string,
@@ -42,8 +42,11 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     }
 
     let onChangeInvoke = function (newValue: any) {
-        let { name, onChange, onValidate } = props;
+        let { name, onChange, onValidate, onConvert } = props;
         let inputValue: InputTextValue = { state: 'none', value: newValue };
+        if (onConvert) {
+            inputValue.value = onConvert(inputValue.value);
+        }
         if (onValidate) {
             onValidate.every(it => {
                 inputValue = it(name, inputValue)
@@ -54,13 +57,15 @@ export const InputText: React.FC<InputTextProps> = (props) => {
             onChange(name, inputValue);
         }
     }
-    let { name, value, message, type, addonPrefix, addonPosfix, placeholder, title } = props;
+    let { name, value, message, type, addonPrefix, addonPosfix, placeholder, title, onFormat } = props;
     title = title || placeholder;
     // let outputMessage = messages || this.state.messages || [];
     let addonPrefixHtml = addonPrefix ? <div className="input-group-prepend"><span className="input-group-text">{addonPrefix}</span></div> : null;
     let addonPosfixHtml = addonPosfix ? <div className="input-group-prepend"><span className="input-group-text">{addonPosfix}</span></div> : null;
     let valueString = value ? value.toString() : '';
-
+    if (onFormat) {
+        valueString = onFormat(value);
+    }
     let messageHtml = <Note message={message} type="note-input" ></Note>;
     //has-warning
     return (
