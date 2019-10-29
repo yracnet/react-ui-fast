@@ -12,7 +12,7 @@ export interface PanelProps {
     icon?: string,
     mode?: 'card' | 'panel' | 'subpanel' | 'modal',
     variant?: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark',
-    children: any | Array<any>
+    children?: any | Array<any>
 }
 
 export const Panel: React.FC<PanelProps> = (props) => {

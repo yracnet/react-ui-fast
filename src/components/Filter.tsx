@@ -44,6 +44,9 @@ const OPTION = {
         { value: 'end', label: 'termina' },
         { value: 'isNull', label: 'Es NULL' },
         { value: 'notNull', label: 'No es NULL' }
+    ],
+    equals: [
+        { value: 'eq', label: '=' }
     ]
 };
 
@@ -57,7 +60,7 @@ export interface FilterTextProps {
     name: string,
     value?: FilterTextValue,
     onChange: (name: string, value: FilterTextValue) => void,
-    option?: 'all' | 'number' | 'string' | 'date',
+    option?: 'all' | 'number' | 'string' | 'date' | 'equals',
     onConvert?: (value?: string) => any,
     onFormat?: (value?: any) => string,
     label?: string,
@@ -72,6 +75,12 @@ export const FilterText: React.FC<FilterTextProps> = (props) => {
         operator: '',
         value: ''
     };
+    let inputChangeEquals = function (event: React.FormEvent<HTMLInputElement | HTMLSelectElement>) {
+        let { name, value } = event.currentTarget;
+        let filterValue: any = Help.appendAttr(name, value, props.value);
+        filterValue.operator = 'eq';
+        onChangeInvoke(filterValue);
+    }
     let inputChange = function (event: React.FormEvent<HTMLInputElement | HTMLSelectElement>) {
         let { name, value } = event.currentTarget;
         let filterValue = Help.appendAttr(name, value, props.value);
@@ -104,6 +113,13 @@ export const FilterText: React.FC<FilterTextProps> = (props) => {
             }
             htmlInput = <input className="form-control" value={valueText} name="value" onChange={inputChange} />;
         }
+    } else if (htmlOptions.length === 1) {
+        className = className + ' col-3';
+        let valueText = filter.value ? filter.value.toString() : '';
+        if (props.onFormat) {
+            valueText = props.onFormat(filter.value);
+        }
+        htmlInput = <input className="form-control" value={valueText} name="value" onChange={inputChangeEquals} />;
     }
     return (
         <div className="input-group input-group-sm input-filter">

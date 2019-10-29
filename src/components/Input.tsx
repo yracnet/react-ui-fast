@@ -41,7 +41,7 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     let onChangeInvoke = function (newValue: any) {
         //let { name, onChange, onValidate, onConvert } = props;
         let inputValue: InputTextValue = { state: 'none', value: newValue };
-        if (props.onConvert) {
+        if (props.onConvert && inputValue.value) {
             inputValue.value = props.onConvert(inputValue.value);
         }
         if (props.onValidate) {
@@ -58,7 +58,7 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     let addonPrefixHtml = props.addonPrefix ? <div className="input-group-prepend"><span className="input-group-text">{props.addonPrefix}</span></div> : null;
     let addonPosfixHtml = props.addonPosfix ? <div className="input-group-prepend"><span className="input-group-text">{props.addonPosfix}</span></div> : null;
     let valueString = props.value ? props.value.toString() : '';
-    if (props.onFormat) {
+    if (props.onFormat && props.value) {
         valueString = props.onFormat(props.value);
     }
     let messageHtml = <Note message={props.message} type="note-input" />;

@@ -9,7 +9,7 @@ function parseCols(data: string | Array<number>): Array<number> {
 //}
 
 function parseArray(value: any | Array<any> | undefined): Array<any> {
-    return Array.isArray(value) ? value : value ? [value] : [];
+    return (Array.isArray(value) ? value : value ? [value] : []).filter(it => !!it);
 }
 
 function generateId(prefix: string = '_') {
