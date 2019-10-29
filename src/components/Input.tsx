@@ -34,115 +34,56 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     if (props.hide === true) {
         return null;
     }
-
-
     let inputChange = function (event: React.FormEvent<HTMLInputElement | HTMLSelectElement>) {
         let { value } = event.currentTarget;
         onChangeInvoke(value);
     }
-
     let onChangeInvoke = function (newValue: any) {
-        let { name, onChange, onValidate, onConvert } = props;
+        //let { name, onChange, onValidate, onConvert } = props;
         let inputValue: InputTextValue = { state: 'none', value: newValue };
-        if (onConvert) {
-            inputValue.value = onConvert(inputValue.value);
+        if (props.onConvert) {
+            inputValue.value = props.onConvert(inputValue.value);
         }
-        if (onValidate) {
-            onValidate.every(it => {
-                inputValue = it(name, inputValue)
+        if (props.onValidate) {
+            props.onValidate.every(it => {
+                inputValue = it(props.name, inputValue)
                 return inputValue.state === 'none';
             });
         }
-        if (onChange) {
-            onChange(name, inputValue);
+        if (props.onChange) {
+            props.onChange(props.name, inputValue);
         }
     }
-    let { name, value, message, type, addonPrefix, addonPosfix, placeholder, title, onFormat } = props;
-    title = title || placeholder;
-    // let outputMessage = messages || this.state.messages || [];
-    let addonPrefixHtml = addonPrefix ? <div className="input-group-prepend"><span className="input-group-text">{addonPrefix}</span></div> : null;
-    let addonPosfixHtml = addonPosfix ? <div className="input-group-prepend"><span className="input-group-text">{addonPosfix}</span></div> : null;
-    let valueString = value ? value.toString() : '';
-    if (onFormat) {
-        valueString = onFormat(value);
+    //let { name, disabled, value, message, type, addonPrefix, addonPosfix, placeholder, title, onFormat } = props;
+    let addonPrefixHtml = props.addonPrefix ? <div className="input-group-prepend"><span className="input-group-text">{props.addonPrefix}</span></div> : null;
+    let addonPosfixHtml = props.addonPosfix ? <div className="input-group-prepend"><span className="input-group-text">{props.addonPosfix}</span></div> : null;
+    let valueString = props.value ? props.value.toString() : '';
+    if (props.onFormat) {
+        valueString = props.onFormat(props.value);
     }
-    let messageHtml = <Note message={message} type="note-input" ></Note>;
+    let messageHtml = <Note message={props.message} type="note-input" />;
+    let inputHtml = props.disabled === true ?
+        <span className="form-control"
+            title={props.title || props.placeholder}
+            placeholder={props.placeholder} >
+            {valueString}
+        </span>
+        :
+        <input
+            name={props.name}
+            value={valueString}
+            onChange={inputChange}
+            type={props.type}
+            className="form-control"
+            title={props.title || props.placeholder}
+            placeholder={props.placeholder} />;
     //has-warning
     return (
         <div className="input-group">
             {addonPrefixHtml}
-            <input
-                name={name}
-                value={valueString}
-                onChange={inputChange}
-                type={type}
-                className="form-control"
-                title={title}
-                placeholder={placeholder} />
+            {inputHtml}
             {addonPosfixHtml}
             {messageHtml}
         </div>
     );
 }
-/*
-export class InputText2 extends React.PureComponent<InputProps, InputValue> {
-    constructor(props: InputProps) {
-        super(props);
-        this.state = { invalid: false, messages: [] };
-        this.inputChange = this.inputChange.bind(this);
-        this.onChangeInvoke = this.onChangeInvoke.bind(this);
-    }
-
-    inputChange(event: React.FormEvent<HTMLInputElement | HTMLSelectElement>) {
-        let { value } = event.currentTarget;
-        this.onChangeInvoke(value);
-    }
-
-    onChangeInvoke(newValue: any) {
-        let { name, onChange, onValidate } = this.props;
-        let state = { ...this.state };
-        let event: InputValue = { invalid: false, value: newValue, messages: [] };
-        if (onValidate) {
-            onValidate.every(it => {
-                event = it(name, event)
-                return !event.invalid;
-            });
-            state.invalid = event.invalid;
-            state.messages = event.messages;
-        }
-        this.setState(state, () => {
-            if (onChange) {
-                onChange(name, event);
-            }
-        });
-    }
-
-    render(): React.ReactNode {
-        if (this.props.hide === true) {
-            return null;
-        }
-        let { name, defaultValue, messages, type, addonPrefix, addonPosfix, placeholder, title } = this.props;
-        title = title || placeholder;
-        let outputMessage = messages || this.state.messages || [];
-        let addonPrefixHtml = addonPrefix ? <div className="input-group-prepend"><span className="input-group-text">{addonPrefix}</span></div> : null;
-        let addonPosfixHtml = addonPosfix ? <div className="input-group-prepend"><span className="input-group-text">{addonPosfix}</span></div> : null;
-        let messageHtml = <Note messages={outputMessage} type="note-input" ></Note>;
-        //has-warning
-        return (
-            <div className="input-group">
-                {addonPrefixHtml}
-                <input
-                    name={name}
-                    defaultValue={defaultValue}
-                    onChange={this.inputChange}
-                    type={type}
-                    className="form-control"
-                    title={title}
-                    placeholder={placeholder} />
-                {addonPosfixHtml}
-                {messageHtml}
-            </div>
-        );
-    };
-};
-/**/

@@ -74,11 +74,20 @@ function isEmpty(it: undefined | Array<any> | object | string) {
         (it.toString().trim().length === 0);
 }
 
+function appendAttr(attr: string, value?: any, target?: object, _default?: object): object {
+    let result: any = target || {};
+    if (_default) {
+        result = Object.assign(result, _default);
+    }
+    result[attr] = value;
+    return result;
+}
 
 export default {
     parseCols,
     parseArray,
     generateId,
+    appendAttr,
     popoverAling,
     diffTimeLiteral,
     isFunction,

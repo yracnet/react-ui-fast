@@ -1,4 +1,5 @@
 import React from 'react';
+import Help from './Help';
 const OPTION = {
     number: [
         { value: '', label: '' },
@@ -63,74 +64,55 @@ export interface FilterTextProps {
     hide?: boolean
 }
 
-export class FilterText extends React.PureComponent<FilterTextProps> {
-    constructor(props: FilterTextProps) {
-        super(props);
-        this.state = {
-            operator: '',
-            value: ''
-        };
-        this.inputChange = this.inputChange.bind(this);
-        this.removeClick = this.removeClick.bind(this);
-        this.onChangeInvoke = this.onChangeInvoke.bind(this);
+export const FilterText: React.FC<FilterTextProps> = (props) => {
+    if (props.hide === true) {
+        return null;
     }
-
-    inputChange(event: React.FormEvent<HTMLInputElement | HTMLSelectElement>) {
-        let { name, value } = event.currentTarget;
-        if (this.props.onConvert) {
-            value = this.props.onConvert(value);
-        }
-        let state = { [name]: value };
-        this.onChangeInvoke(state);
-    }
-
-    removeClick() {
-        this.onChangeInvoke({ value: '', operator: 'none' });
-    }
-
-    onChangeInvoke(state: FilterTextValue) {
-        this.setState(state, () => {
-            let { onChange, name } = this.props;
-            onChange(name, this.state);
-        });
-    }
-
-    render(): React.ReactNode {
-        let { value, label, hide, option } = this.props;
-        if (hide === true) {
-            return null;
-        }
-        let filter: FilterTextValue = value || {
-            operator: '',
-            value: ''
-        };
-        if (this.props.onFormat) {
-            filter.value = this.props.onFormat(filter.value);
-        }
-        option = option || 'string';
-        let htmlOptions = OPTION[option].map((it, i) => <option key={i} value={it.value} >{it.label}</option>);
-        let htmlLabel = label ? <div className="input-group-append"><label className="input-group-text">{label}:</label></div> : null;
-        let htmlInput = null;
-        let htmlButton = null;
-        let className = 'custom-select';
-        if (filter && filter.operator && filter.operator !== 'none') {
-            htmlButton = <button className="btn btn-sm  btn-danger" onClick={this.removeClick}> X</button>;
-            if (filter.operator !== 'isNull' && filter.operator !== 'notNull') {
-                className = className + ' col-3';
-                htmlInput = <input className="form-control" defaultValue={filter.value} name="value" onChange={this.inputChange} />;
-            }
-        }
-        return (
-            <div className="input-group input-group-sm input-filter">
-                {htmlLabel}
-                <select className={className} value={filter.operator} name="operator" onChange={this.inputChange}>
-                    {htmlOptions}
-                </select>
-                {htmlInput}
-                {htmlButton}
-            </div>
-        );
+    let filter: FilterTextValue = props.value || {
+        operator: '',
+        value: ''
     };
-
-
-};
+    let inputChange = function (event: React.FormEvent<HTMLInputElement | HTMLSelectElement>) {
+        let { name, value } = event.currentTarget;
+        let filterValue = Help.appendAttr(name, value, props.value);
+        onChangeInvoke(filterValue);
+    }
+    let removeClick = function () {
+        onChangeInvoke({ value: '', operator: 'none' });
+    }
+    let onChangeInvoke = function (filterValue: FilterTextValue) {
+        if (props.onChange) {
+            if (props.onConvert) {
+                filterValue.value = props.onConvert(filterValue.value);
+            }
+            props.onChange(props.name, filterValue);
+        }
+    }
+    let option = props.option || 'string';
+    let htmlOptions = OPTION[option].map((it, i) => <option key={i} value={it.value} >{it.label}</option>);
+    let htmlLabel = props.label ? <div className="input-group-append"><label className="input-group-text">{props.label}:</label></div> : null;
+    let htmlInput = null;
+    let htmlButton = null;
+    let className = 'custom-select';
+    if (filter && filter.operator && filter.operator !== 'none') {
+        htmlButton = <button className="btn btn-sm  btn-danger" onClick={removeClick}> X</button>;
+        if (filter.operator !== 'isNull' && filter.operator !== 'notNull') {
+            className = className + ' col-3';
+            let valueText = filter.value ? filter.value.toString() : '';
+            if (props.onFormat) {
+                valueText = props.onFormat(filter.value);
+            }
+            htmlInput = <input className="form-control" value={valueText} name="value" onChange={inputChange} />;
+        }
+    }
+    return (
+        <div className="input-group input-group-sm input-filter">
+            {htmlLabel}
+            <select className={className} value={filter.operator} name="operator" onChange={inputChange}>
+                {htmlOptions}
+            </select>
+            {htmlInput}
+            {htmlButton}
+        </div>
+    );
+}
