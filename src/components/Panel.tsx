@@ -31,10 +31,10 @@ export const Panel: React.FC<PanelProps> = (props) => {
     let titleHtml = title ? <strong className={mode + '-title'}>{title.props.children}</strong> : null;
     let bodyHtml = body ? <div className={mode + '-body'}>{titleHtml}{body}</div> : null;
     let footerHtml = footer ? <footer className={mode + '-footer'}>{footer.props.children}</footer> : null;
-    return mode === 'modal' ?
+    return mode === "modal" ?
         <div className="modal fade show modal-open">
-            <div className="modal-dialog modal-lg">
-                <div className={'modal-content w' + width}>
+            <div className={"modal-dialog modal-lg w" + width}>
+                <div className="modal-content">
                     {headerHtml}
                     {bodyHtml}
                     {footerHtml}
@@ -43,7 +43,7 @@ export const Panel: React.FC<PanelProps> = (props) => {
             <div className="modal-background"></div>
         </div>
         :
-        <div className={mode + ' mb-1 border-' + variant + ' w' + width}>
+        <div className={mode + " mb-1 border-" + variant + " w" + width}>
             {headerHtml}
             {bodyHtml}
             {footerHtml}
