@@ -13,8 +13,8 @@ export interface InputTextState {
     value?: any,
     message?: string | InputTextMessage
 }
-export type InputTextChange = (event: InputTextState) => void;
-export type InputTextValidate = (event: InputTextState) => InputTextState;
+export type InputTextChange = (state: InputTextState) => void;
+export type InputTextValidate = (state: InputTextState) => InputTextState;
 export interface InputTextProps {
     name: string,
     value?: any,

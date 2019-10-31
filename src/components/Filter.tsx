@@ -55,11 +55,17 @@ export interface FilterTextValue {
     operator?: string,
     value?: any
 }
+export interface FilterTextState {
+    name: string,
+    operator?: string,
+    value?: any
+}
+export type FilterTextChange = (state: FilterTextState) => void;
 
 export interface FilterTextProps {
     name: string,
     value?: FilterTextValue,
-    onChange: (name: string, value: FilterTextValue) => void,
+    onChange?: FilterTextChange,
     option?: 'all' | 'number' | 'string' | 'date' | 'equals',
     onConvert?: (value?: string) => any,
     onFormat?: (value?: any) => string,
@@ -94,7 +100,7 @@ export const FilterText: React.FC<FilterTextProps> = (props) => {
             if (props.onConvert) {
                 filterValue.value = props.onConvert(filterValue.value);
             }
-            props.onChange(props.name, filterValue);
+            props.onChange({ name: props.name, ...filterValue });
         }
     }
     let option = props.option || 'string';
