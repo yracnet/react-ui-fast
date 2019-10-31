@@ -27,14 +27,13 @@ export const Increase: React.FC<IncreaseProps> = (props) => {
   if (props.hide === true) {
     return null;
   }
-
   let onAppendInvoke = function (e: any, i: number) {
-    //let length = props.values ? props.values.length : 0;
-
+    props.onAppend(i);
   }
   let onRemoveInvoke = function (e: any, i: number) {
-    //let length = props.values ? props.values.length : 0;
-    //props.onRemove?
+    if (props.onRemove) {
+      props.onRemove(i);
+    }
   }
   let valuesLength = props.values ? props.values.length : 0;
   let refuseMaximum = valuesLength >= props.maximum ? props.refuseMaximum || 'No puede adjuntar mas de ' + props.maximum + ' elementos' : undefined;
