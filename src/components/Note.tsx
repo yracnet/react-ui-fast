@@ -4,7 +4,7 @@ import { Icon } from './Icon';
 import Help from './Help';
 
 export interface NoteMessage {
-    type: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark',
+    type: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' | 'none',
     icon?: string,
     message: string
 }
@@ -20,7 +20,7 @@ export const Note: React.FC<NoteProps> = (props) => {
     if (props.hide === true) {
         return null;
     }
-    let messages = Help.parseArray(props.message).map(it => typeof it === 'string' ? { type: 'info', message: it, icon: 'info' } : it);
+    let messages: NoteMessage[] = Help.parseArray(props.message).map(it => typeof it === 'string' ? { type: 'info', message: it, icon: 'info' } : it);
     if (!messages.length) {
         return null;
     }
