@@ -7,17 +7,19 @@ export interface InputTextMessage {
     message: string
 }
 
-export interface InputTextValue {
-    value?: any,
+export interface InputTextState {
+    name: string,
     state: 'error' | 'success' | 'info' | 'none',
+    value?: any,
     message?: string | InputTextMessage
 }
-
+export type InputTextChange = (event: InputTextState) => void;
+export type InputTextValidate = (event: InputTextState) => InputTextState;
 export interface InputTextProps {
     name: string,
     value?: any,
-    onChange?: (name: string, e: InputTextValue) => void,
-    onValidate?: Array<(name: string, event: InputTextValue) => InputTextValue>;
+    onChange?: InputTextChange,
+    onValidate?: InputTextValidate[];
     onConvert?: (value?: string) => any,
     onFormat?: (value?: any) => string,
     type?: "string" | "number" | "date",
@@ -40,18 +42,18 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     }
     let onChangeInvoke = function (newValue: any) {
         //let { name, onChange, onValidate, onConvert } = props;
-        let inputValue: InputTextValue = { state: 'none', value: newValue };
+        let inputValue: InputTextState = { name: props.name, state: 'none', value: newValue };
         if (props.onConvert && inputValue.value) {
             inputValue.value = props.onConvert(inputValue.value);
         }
         if (props.onValidate) {
             props.onValidate.every(it => {
-                inputValue = it(props.name, inputValue)
+                inputValue = it(inputValue)
                 return inputValue.state === 'none';
             });
         }
         if (props.onChange) {
-            props.onChange(props.name, inputValue);
+            props.onChange(inputValue);
         }
     }
     //let { name, disabled, value, message, type, addonPrefix, addonPosfix, placeholder, title, onFormat } = props;

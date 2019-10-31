@@ -1,16 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './Button.scss';
+import * as H from 'history';
 import { Popover } from './Popover';
 import { Icon } from './Icon';
 import Help from './Help';
-
 //type messageType = () =>(string|)
 type confirmType = () => string | undefined;
 type refuseType = () => string | Array<string> | undefined;
 
 export interface ButtonProps {
   name: string,
+  history?: H.History,
+  to?: string,
   onClick?: (name: string, params?: Array<any>) => void,
   params?: Array<any>,
   hide?: boolean,
@@ -31,8 +33,14 @@ export const Button: React.SFC<ButtonProps> = (props) => {
     return null;
   }
   let onClickInvoke = function () {
-    let { onClick, name, params } = props;
-    if (onClick) {
+    let { onClick, name, params, to, history } = props;
+    if (to) {
+      if (history) {
+        history.push(to);
+      } else {
+        console.warn('Button TO=URL requiere a history propertie for redirect to:', to);
+      }
+    } else if (onClick) {
       onClick(name, params);
     }
   };
@@ -41,8 +49,8 @@ export const Button: React.SFC<ButtonProps> = (props) => {
     element.parentNode.removeChild(element);
   };
   let onClickCloseInvoke = function (element: any) {
-    onClickInvoke();
     onClickClose(element);
+    onClickInvoke();
   };
   let onClickConfirm = function (event: any, confirmMessage: string) {
     let element = event.currentTarget;
@@ -120,3 +128,4 @@ export const Button: React.SFC<ButtonProps> = (props) => {
   )
 }
 
+//export const ButtonInbox = withRouter(ButtonImpl);
