@@ -47,7 +47,6 @@ export const Increase: React.FC<IncreaseProps> = (props) => {
         <Button name="append" icon="trash" onClick={e => onRemoveInvoke(it, i)} hide={!props.onRemove} variant="danger" refuse={refuseMinimum} />
       </div>
       <div className="Increase-Content">
-        <h1>-{i}</h1>
         {props.onContent(it, i)}
       </div>
     </li>);
