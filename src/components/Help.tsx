@@ -8,6 +8,21 @@ function parseCols(data: string | Array<number>): Array<number> {
 //    return Array.isArray(children) ? children : [children];
 //}
 
+function insertArray<T>(source: Array<T>, index: number, value: T): Array<T> {
+    let target: T[] = [];
+    if (index < source.length) {
+        source.forEach((it, i) => {
+            target.push(it);
+            if (i === index) {
+                target.push(value);
+            }
+        });
+    } else {
+        target.push(value);
+    }
+    return target;
+}
+
 function parseArray(value: any | Array<any> | undefined): Array<any> {
     return (Array.isArray(value) ? value : value ? [value] : []).filter(it => !!it);
 }
@@ -86,6 +101,7 @@ function appendAttr(attr: string, value?: any, target?: object, _default?: objec
 export default {
     parseCols,
     parseArray,
+    insertArray,
     generateId,
     appendAttr,
     popoverAling,

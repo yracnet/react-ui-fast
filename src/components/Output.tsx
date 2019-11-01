@@ -18,6 +18,6 @@ export const OutputText: React.FC<OutputTextProps> = (props) => {
     if (onFormat) {
         valueText = onFormat(valueText);
     }
-    let className = 'label-text-' + (align || 'left');
+    let className = 'Output label-text-' + (align || 'left');
     return <label className={className}>{valueText}</label>;
 }

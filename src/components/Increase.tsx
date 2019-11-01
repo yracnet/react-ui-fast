@@ -17,8 +17,9 @@ export interface IncreaseProps {
   refuseMaximum?: string,
   appendMode: 'one' | 'row',
   onAppend: (index: number) => void,
-  onRemove?: (index: number) => void,
+  onRemove?: (it: any, index: number) => void,
   onContent: (it: any, index: number) => any,
+  onAction?: (it: any, index: number) => any,
   children?: any | Array<any>
 }
 //white-space: nowrap;
@@ -27,32 +28,32 @@ export const Increase: React.FC<IncreaseProps> = (props) => {
   if (props.hide === true) {
     return null;
   }
-  let onAppendInvoke = function (e: any, i: number) {
+  let onAppendInvoke = function (i: number) {
     props.onAppend(i);
   }
-  let onRemoveInvoke = function (e: any, i: number) {
+  let onRemoveInvoke = function (it: any, i: number) {
     if (props.onRemove) {
-      props.onRemove(i);
+      props.onRemove(it, i);
     }
   }
   let valuesLength = props.values ? props.values.length : 0;
   let refuseMaximum = valuesLength >= props.maximum ? props.refuseMaximum || 'No puede adjuntar mas de ' + props.maximum + ' elementos' : undefined;
   let refuseMinimum = valuesLength <= props.minimum ? props.refuseMinimum || 'No puede haber menos de ' + props.minimum + ' elementos' : undefined;
   let contentHtml = help.parseArray(props.values)
-    .map((it, i) => props.onContent(it, i))
-    .map((it, i) => <li key={'increase-item-' + i} className="list-group-item Increase-Item">
+    .map((it, i) => <li key={i} className="list-group-item Increase-Item">
       <div className="Increase-Action Animate">
-        <Button name="append" icon="plus" onClick={e => onAppendInvoke(e, i)} hide={props.appendMode === 'one'} variant="success" refuse={refuseMaximum} />
-        <Button name="append" icon="trash" onClick={e => onRemoveInvoke(e, i)} hide={!props.onRemove} variant="danger" refuse={refuseMinimum} />
+        {props.onAction ? props.onAction(it, i) : null}
+        <Button name="append" icon="plus" onClick={e => onAppendInvoke(i)} hide={props.appendMode === 'one'} variant="success" refuse={refuseMaximum} />
+        <Button name="append" icon="trash" onClick={e => onRemoveInvoke(it, i)} hide={!props.onRemove} variant="danger" refuse={refuseMinimum} />
       </div>
       <div className="Increase-Content">
-        {it}
+        <h1>-{i}</h1>
+        {props.onContent(it, i)}
       </div>
     </li>);
-
   let appendDefaultHtml = contentHtml.length === 0 || props.appendMode === 'one' ?
     <div className="Increase-Action">
-      <Button name="append" icon="plus" onClick={e => onAppendInvoke(e, 0)} variant="success" refuse={refuseMaximum} />
+      <Button name="append" icon="plus" onClick={e => onAppendInvoke(0)} variant="success" refuse={refuseMaximum} />
     </div>
     : null;
   let variant = props.variant || 'default';
