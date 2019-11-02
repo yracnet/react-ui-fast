@@ -30,38 +30,49 @@ function parseArray(value: any | Array<any> | undefined): Array<any> {
 function generateId(prefix: string = '_') {
     return prefix + Math.random().toString(36).substr(2, 9);
 };
-function popoverAling(mode: 'auto' | 'top' | 'left' | 'right' | 'bottom', element: HTMLElement, popover: HTMLElement): 'top' | 'left' | 'right' | 'bottom' {
+function popoverAling(mode: 'auto' | 'top' | 'left' | 'right' | 'bottom', reference: HTMLElement, popover: HTMLElement): 'top' | 'left' | 'right' | 'bottom' {
+    let position = getPosition(reference);
     if (mode === 'auto') {
         let popoverWidth = popover.offsetWidth;
         let popoverHeight = popover.offsetHeight;
         let winWidth = window.innerWidth / 2;
         let winHeight = window.innerHeight / 2;
-        if (element.offsetLeft + element.offsetWidth + popoverWidth > winWidth) { //top
+        if (position.left + position.width + popoverWidth > winWidth) { //top
             mode = 'left';
-        } else if (element.offsetTop - popoverHeight < 0) {
+        } else if (position.top - popoverHeight < 0) {
             mode = 'left';
-        } else if (element.offsetLeft - popoverWidth > winWidth) {
+        } else if (position.left - popoverWidth > winWidth) {
             mode = 'right';
-        } else if (element.offsetTop + popoverHeight > winHeight) {
+        } else if (position.top + popoverHeight > winHeight) {
             mode = 'top';
         } else {
             mode = 'top';
         }
     }
     if (mode === 'left') {
-        popover.style.left = (element.offsetLeft - popover.offsetWidth) + 'px';
-        popover.style.top = (element.offsetTop - element.offsetHeight / 4) + 'px';
+        popover.style.left = (position.left - popover.offsetWidth) + 'px';
+        popover.style.top = (position.top - position.height / 4) + 'px';
     } else if (mode === 'right') {
-        popover.style.left = (element.offsetLeft + element.offsetWidth) + 'px';
-        popover.style.top = (element.offsetTop - element.offsetHeight / 4) + 'px';
+        popover.style.left = (position.left + position.width) + 'px';
+        popover.style.top = (position.top - position.height / 4) + 'px';
     } else if (mode === 'bottom') {
-        popover.style.left = (element.offsetLeft) + 'px';
-        popover.style.top = (element.offsetTop + element.offsetHeight) + 'px';
+        popover.style.left = (position.left) + 'px';
+        popover.style.top = (position.top + position.height) + 'px';
     } else {
-        popover.style.left = (element.offsetLeft) + 'px';
-        popover.style.top = (element.offsetTop - popover.offsetHeight - 5) + 'px';
+        popover.style.left = (position.left) + 'px';
+        popover.style.top = (position.top - popover.offsetHeight - 5) + 'px';
     }
     return mode;
+}
+
+function getPosition(el: HTMLElement) {
+    const rect = el.getBoundingClientRect();
+    return {
+        left: rect.left + window.scrollX,
+        top: rect.top + window.scrollY,
+        width: el.offsetWidth,
+        height: el.offsetHeight
+    };
 }
 
 function diffTimeLiteral(from: Date, to?: Date): string {

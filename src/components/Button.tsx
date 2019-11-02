@@ -48,7 +48,6 @@ export const Button: React.SFC<ButtonProps> = (props) => {
   let onClickClose = function (element: any) {
     ReactDOM.unmountComponentAtNode(element);
     document.body.removeChild(element);
-    //element.parentNode.removeChild(element);
     hideBlock();
   };
   let onClickCloseInvoke = function (element: any) {
@@ -76,7 +75,6 @@ export const Button: React.SFC<ButtonProps> = (props) => {
     </Popover>;
     spanBefore.className = 'Button-Popover';
     document.body.appendChild(spanBefore);
-    //element.parentElement.insertBefore(spanBefore, element);
     ReactDOM.render(confirmHtml, spanBefore, showBlock);
   };
   let onClickRefuse = function (event: any, refuseMessage: Array<string>) {
@@ -96,7 +94,6 @@ export const Button: React.SFC<ButtonProps> = (props) => {
     </Popover>;
     spanBefore.className = 'Button-Popover';
     document.body.appendChild(spanBefore);
-    //element.parentElement.insertBefore(spanBefore, element);
     ReactDOM.render(refuseHtml, spanBefore, showBlock);
   };
   let disabled = props.disabled || false;

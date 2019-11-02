@@ -1,23 +1,24 @@
-.Button{
-
-  a.disabled-true{
+.Button {
+  a.disabled-true {
     opacity: 0.5;
     cursor: not-allowed;
   }
-  
-  button[disabled]{
+
+  button[disabled] {
     cursor: not-allowed;
   }
-  
-  .Button-Confirm .fa{
+
+  .Button-Confirm .fa {
     margin-right: 10px;
   }
-
 }
 
-.Button-Popover{
-  > *{
+.Button-Popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  > * {
     width: 100%;
     min-width: 250px;
   }
-} 
+}
