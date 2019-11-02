@@ -7,3 +7,59 @@
 .label-text-center {
   justify-content: center !important;
 }
+
+.Label-Top {
+  .Text {
+    font-size: 80%;
+    color: rgba(0, 0, 0, 0.2);
+  }
+  .Reference:empty,
+  .Reference > *:empty {
+    height: 1.5em;
+  }
+  .Reference:empty,
+  .Reference > *:empty {
+    height: 1.5em;
+  }
+  .Reference input {
+    border: 0;
+    box-shadow: inset 2px 2px rgba(0, 0, 0, 0.125);
+  }
+  .Reference label {
+    border-style: groove;
+    border-width: 0 0 thin thin;
+    border-width: 0;
+    border-color: rgba(0, 0, 0, 0.125);
+    padding-left: 2px;
+    padding-top: 0;
+    padding-bottom: 6px;
+  }
+}
+
+.Label-Bottom {
+  .Text {
+    font-size: 80%;
+    color: rgba(0, 0, 0, 0.2);
+  }
+  .Reference:empty,
+  .Reference > *:empty {
+    height: 1.5em;
+  }
+  .Reference:empty,
+  .Reference > *:empty {
+    height: 1.5em;
+  }
+  .Reference input {
+    border: 0;
+    box-shadow: groove 2px 2px rgba(0, 0, 0, 0.125);
+  }
+  .Reference label {
+    border-bottom-style: dashed;
+    border-bottom-width: thin;
+    border-bottom-color: rgba(0, 0, 0, 0.125);
+  }
+}
+
+*::placeholder {
+  color: rgba(0, 0, 0, 0.125);
+}

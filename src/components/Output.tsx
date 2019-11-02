@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import "./Output.scss";
 
 export interface OutputTextProps {
@@ -14,10 +14,10 @@ export const OutputText: React.FC<OutputTextProps> = (props) => {
         return null;
     }
     let { value, onFormat, align } = props;
-    let valueText = value || '';
+    let valueText = value || "";
     if (onFormat) {
-        valueText = onFormat(valueText);
+        valueText = onFormat(value);
     }
-    let className = 'Output label-text-' + (align || 'left');
+    let className = "Output label-text-" + (align || "left");
     return <label className={className}>{valueText}</label>;
 }
