@@ -1,5 +1,4 @@
 
-
 function parseCols(data: string | Array<number>): Array<number> {
     return typeof data === 'string' ? data.split(',').map(i => parseInt(i)) : data;
 }
@@ -30,25 +29,15 @@ function parseArray(value: any | Array<any> | undefined): Array<any> {
 function generateId(prefix: string = '_') {
     return prefix + Math.random().toString(36).substr(2, 9);
 };
-function popoverAling(mode: 'auto' | 'top' | 'left' | 'right' | 'bottom', reference: HTMLElement, popover: HTMLElement): 'top' | 'left' | 'right' | 'bottom' {
-    let position = getPosition(reference);
-    if (mode === 'auto') {
-        let popoverWidth = popover.offsetWidth;
-        let popoverHeight = popover.offsetHeight;
-        let winWidth = window.innerWidth / 2;
-        let winHeight = window.innerHeight / 2;
-        if (position.left + position.width + popoverWidth > winWidth) { //top
-            mode = 'left';
-        } else if (position.top - popoverHeight < 0) {
-            mode = 'left';
-        } else if (position.left - popoverWidth > winWidth) {
-            mode = 'right';
-        } else if (position.top + popoverHeight > winHeight) {
-            mode = 'top';
-        } else {
-            mode = 'top';
-        }
-    }
+
+type ModeType = 'auto' | 'top' | 'left' | 'right' | 'bottom';
+type PositionType = {
+    left: number,
+    top: number,
+    width: number,
+    height: number
+};
+function setPosition(mode: ModeType, popover: HTMLElement, position: PositionType): PositionType {
     if (mode === 'left') {
         popover.style.left = (position.left - popover.offsetWidth) + 'px';
         popover.style.top = (position.top - position.height / 4) + 'px';
@@ -62,10 +51,15 @@ function popoverAling(mode: 'auto' | 'top' | 'left' | 'right' | 'bottom', refere
         popover.style.left = (position.left) + 'px';
         popover.style.top = (position.top - popover.offsetHeight - 5) + 'px';
     }
-    return mode;
+    return {
+        left: popover.offsetLeft,
+        top: popover.offsetTop,
+        width: popover.offsetWidth,
+        height: popover.offsetHeight
+    };
 }
 
-function getPosition(el: HTMLElement) {
+function getPosition(el: HTMLElement): PositionType {
     const rect = el.getBoundingClientRect();
     return {
         left: rect.left + window.scrollX,
@@ -73,6 +67,26 @@ function getPosition(el: HTMLElement) {
         width: el.offsetWidth,
         height: el.offsetHeight
     };
+}
+
+function popoverAling(mode: ModeType, reference: HTMLElement, popover: HTMLElement): ModeType {
+    let position = getPosition(reference);
+    if (mode === 'auto') {
+        let winWidth = window.innerWidth;
+        let pos = setPosition(mode = "left", popover, position);
+        if (pos.left < 0) {
+            pos = setPosition(mode = "right", popover, position);
+            if (winWidth < pos.left + pos.width) {
+                pos = setPosition(mode = "top", popover, position);
+                if (pos.top < 0) {
+                    pos = setPosition(mode = "bottom", popover, position);
+                }
+            }
+        }
+    } else {
+        setPosition(mode, popover, position);
+    }
+    return mode;
 }
 
 function diffTimeLiteral(from: Date, to?: Date): string {

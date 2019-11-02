@@ -12,6 +12,7 @@
   .Text {
     font-size: 80%;
     color: rgba(0, 0, 0, 0.2);
+    margin-top: 8px;
   }
   .Reference:empty,
   .Reference > *:empty {
@@ -22,8 +23,8 @@
     height: 1.5em;
   }
   .Reference input {
-    border: 0;
-    box-shadow: inset 2px 2px rgba(0, 0, 0, 0.125);
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.09);
   }
   .Reference label {
     border-style: groove;
@@ -40,6 +41,7 @@
   .Text {
     font-size: 80%;
     color: rgba(0, 0, 0, 0.2);
+    margin-bottom: 8px;
   }
   .Reference:empty,
   .Reference > *:empty {
@@ -50,8 +52,8 @@
     height: 1.5em;
   }
   .Reference input {
-    border: 0;
-    box-shadow: groove 2px 2px rgba(0, 0, 0, 0.125);
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.09);
   }
   .Reference label {
     border-bottom-style: dashed;
