@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import help from "./Help";
+import Help from "./Help";
 import { LabelText } from "./Label";
 
 export interface GridProps {
@@ -12,9 +12,9 @@ export interface GridProps {
 
 export const Grid: React.FC<GridProps> = (props) => {
     let mode = props.mode;
-    let cols: Array<number> = help.parseCols(props.cols);
-    let mdcols: Array<number> = help.parseCols(props.mdcols || cols);
-    let children: ReactElement[] = help.parseArray(props.children);
+    let cols: Array<number> = Help.parseCols(props.cols);
+    let mdcols: Array<number> = Help.parseCols(props.mdcols || cols);
+    let children: ReactElement[] = Help.parseArray(props.children);
     children = children.map(it => {
         if (it.type === LabelText && mode) {
             it = <LabelText mode={mode} {...it.props} />

@@ -8,6 +8,7 @@ import { Grid, GridProps } from "./components/Grid";
 import { Icon, IconProps } from "./components/Icon";
 import { Increase, IncreaseProps } from "./components/Increase";
 import { InputText, InputTextProps, InputTextState, InputTextMessage, InputTextValidate, InputTextChange } from "./components/Input";
+import { LabelText, LabelTextProps } from "./components/Label";
 import { Note, NoteProps, NoteMessage } from "./components/Note";
 import { OutputText, OutputTextProps } from "./components/Output";
 import { Pager, PagerProps, PagerValue } from "./components/Pager";
@@ -25,6 +26,7 @@ export {
     Icon,
     Increase,
     InputText,
+    LabelText,
     Note,
     OutputText,
     Pager,
@@ -49,6 +51,7 @@ export declare type InputTextState = InputTextState;
 export declare type InputTextMessage = InputTextMessage;
 export declare type InputTextValidate = InputTextValidate;
 export declare type InputTextChange = InputTextChange;
+export declare type LabelTextProps = LabelTextProps;
 export declare type NoteProps = NoteProps;
 export declare type NoteMessage = NoteMessage;
 export declare type OutputTextProps = OutputTextProps;
