@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './Button.scss';
 import * as H from 'history';
 import { Popover } from './Popover';
+import { showBlock, hideBlock } from './Block';
 import { Icon } from './Icon';
 import Help from './Help';
 //type messageType = () =>(string|)
@@ -46,7 +47,9 @@ export const Button: React.SFC<ButtonProps> = (props) => {
   };
   let onClickClose = function (element: any) {
     ReactDOM.unmountComponentAtNode(element);
-    element.parentNode.removeChild(element);
+    document.body.removeChild(element);
+    //element.parentNode.removeChild(element);
+    hideBlock();
   };
   let onClickCloseInvoke = function (element: any) {
     onClickClose(element);
@@ -55,7 +58,7 @@ export const Button: React.SFC<ButtonProps> = (props) => {
   let onClickConfirm = function (event: any, confirmMessage: string) {
     let element = event.currentTarget;
     let spanBefore = document.createElement('span');
-    let confirmHtml = <Popover variant="warning" arrow="top" for={spanBefore} >
+    let confirmHtml = <Popover variant="warning" arrow="top" for={element} >
       <header>Confirmacion</header>
       <p className="mb-1">{confirmMessage}</p>
       <div className="text-center mt-1">
@@ -72,13 +75,14 @@ export const Button: React.SFC<ButtonProps> = (props) => {
       </div>
     </Popover>;
     spanBefore.className = 'Button-Popover';
-    element.parentElement.insertBefore(spanBefore, element);
-    ReactDOM.render(confirmHtml, spanBefore);
+    document.body.appendChild(spanBefore);
+    //element.parentElement.insertBefore(spanBefore, element);
+    ReactDOM.render(confirmHtml, spanBefore, showBlock);
   };
   let onClickRefuse = function (event: any, refuseMessage: Array<string>) {
     let element = event.currentTarget;
     let spanBefore = document.createElement('span');
-    let refuseHtml = <Popover variant="danger" arrow="auto" for={spanBefore} >
+    let refuseHtml = <Popover variant="danger" arrow="auto" for={element} >
       <header>Rechazo</header>
       {refuseMessage.map((it, i) => <p key={i} className="mb-1">{it}</p>)}
       <div className="text-center mt-1">
@@ -91,8 +95,9 @@ export const Button: React.SFC<ButtonProps> = (props) => {
       </div>
     </Popover>;
     spanBefore.className = 'Button-Popover';
-    element.parentElement.insertBefore(spanBefore, element);
-    ReactDOM.render(refuseHtml, spanBefore);
+    document.body.appendChild(spanBefore);
+    //element.parentElement.insertBefore(spanBefore, element);
+    ReactDOM.render(refuseHtml, spanBefore, showBlock);
   };
   let disabled = props.disabled || false;
   let variant = props.variant || 'default';
@@ -127,5 +132,3 @@ export const Button: React.SFC<ButtonProps> = (props) => {
       </button>
   )
 }
-
-//export const ButtonInbox = withRouter(ButtonImpl);

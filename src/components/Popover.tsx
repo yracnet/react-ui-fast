@@ -46,10 +46,12 @@ export const Popover: React.FC<PopoverProps> = (props) => {
     }
     setTimeout(onPositionRelative, 25);
 
-    return <div className="popover fade hide bs-popover-top" style={inlineStyle} id={id}>
-        <div className="arrow"></div>
-        {headerHtml}
-        {bodyHtml}
-        {footerHtml}
-    </div>;
+    return (
+        <div className="popover fade hide bs-popover-top" style={inlineStyle} id={id}>
+            <div className="arrow"></div>
+            {headerHtml}
+            {bodyHtml}
+            {footerHtml}
+        </div>
+    );
 }
