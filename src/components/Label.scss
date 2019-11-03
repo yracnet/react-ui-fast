@@ -8,32 +8,47 @@
   justify-content: center !important;
 }
 
+.Label-Top,
+.Label-Bottom {
+  display: block;
+  margin-left: 2px;
+  &:hover {
+    background-color: rgba(200, 200, 200, 0.16);
+    .Text {
+      color: black;
+    }
+  }
+}
+
 .Label-Top {
   .Text {
     font-size: 80%;
     color: rgba(0, 0, 0, 0.2);
     margin-top: 8px;
   }
-  .Reference:empty,
-  .Reference > *:empty {
-    height: 1.5em;
-  }
-  .Reference:empty,
-  .Reference > *:empty {
-    height: 1.5em;
-  }
-  .Reference input {
-    border-width: 1px;
-    border-color: rgba(0, 0, 0, 0.09);
-  }
-  .Reference label {
-    border-style: groove;
-    border-width: 0 0 thin thin;
-    border-width: 0;
-    border-color: rgba(0, 0, 0, 0.125);
-    padding-left: 2px;
-    padding-top: 0;
-    padding-bottom: 6px;
+  .Reference {
+    border-width: 0px;
+    :empty,
+    > *:empty {
+      height: 1.5em;
+    }
+    :empty,
+    > *:empty {
+      height: 1.5em;
+    }
+    input {
+      border-width: 1px;
+      border-color: rgba(0, 0, 0, 0.09);
+    }
+    label {
+      border-style: groove;
+      border-width: 0 0 thin thin;
+      border-width: 0;
+      border-color: rgba(0, 0, 0, 0.125);
+      padding-left: 2px;
+      padding-top: 0;
+      padding-bottom: 6px;
+    }
   }
 }
 
@@ -43,22 +58,25 @@
     color: rgba(0, 0, 0, 0.2);
     margin-bottom: 8px;
   }
-  .Reference:empty,
-  .Reference > *:empty {
-    height: 1.5em;
-  }
-  .Reference:empty,
-  .Reference > *:empty {
-    height: 1.5em;
-  }
-  .Reference input {
-    border-width: 1px;
-    border-color: rgba(0, 0, 0, 0.09);
-  }
-  .Reference label {
-    border-bottom-style: dashed;
-    border-bottom-width: thin;
-    border-bottom-color: rgba(0, 0, 0, 0.125);
+  .Reference {
+    border-width: 0px;
+    :empty,
+    > *:empty {
+      height: 1.5em;
+    }
+    :empty,
+    > *:empty {
+      height: 1.5em;
+    }
+    input {
+      border-width: 1px;
+      border-color: rgba(0, 0, 0, 0.09);
+    }
+    label {
+      border-bottom-style: dashed;
+      border-bottom-width: thin;
+      border-bottom-color: rgba(0, 0, 0, 0.125);
+    }
   }
 }
 
