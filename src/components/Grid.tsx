@@ -4,18 +4,18 @@ import { LabelText } from "./Label";
 
 export interface GridProps {
     className?: string,
-    lgcols?: string | Array<number>,
-    cols: string | Array<number>,
-    mdcols?: string | Array<number>,
+    cols: Array<number>,
+    colsLg?: Array<number>,
+    colsMd?: Array<number>,
     mode?: "bottom" | "top",
     children: ReactElement | Array<ReactElement>
 }
 
 export const Grid: React.FC<GridProps> = (props) => {
     let mode = props.mode;
-    let cols: Array<number> = Help.parseCols(props.cols);
-    let mdcols: Array<number> = Help.parseCols(props.mdcols || cols);
-    let lgcols: Array<number> = Help.parseCols(props.lgcols || cols);
+    let cols: Array<number> = props.cols;
+    let colsMd: Array<number> = Help.parseCols(props.colsMd || cols);
+    let colsLg: Array<number> = Help.parseCols(props.colsLg || cols);
     let children: ReactElement[] = Help.parseArray(props.children);
     children = children.map(it => {
         if (it.type === LabelText && mode) {
@@ -25,9 +25,9 @@ export const Grid: React.FC<GridProps> = (props) => {
     });
     let contentHtml = children.map((it, i) => {
         let col = cols[i % cols.length];
-        let mdcol = mdcols[i % mdcols.length];
-        let lgcol = lgcols[i % lgcols.length];
-        let className = "col-" + col + " col-md-" + mdcol + " col-lg-" + lgcol;
+        let colMd = colsMd[i % colsMd.length];
+        let colLg = colsLg[i % colsLg.length];
+        let className = "col-" + col + " col-md-" + colMd + " col-lg-" + colLg;
         return <span key={i} className={className}>{it}</span>
     });
     let className = "row form-inline " + (props.className || "");

@@ -21,20 +21,16 @@
 }
 
 .Label-Top {
-  .Text {
+  > .Text {
     font-size: 80%;
     color: rgba(0, 0, 0, 0.2);
     margin-top: 8px;
   }
-  .Reference {
+  > .Reference {
     border-width: 0px;
-    :empty,
-    > *:empty {
-      height: 1.5em;
-    }
-    :empty,
-    > *:empty {
-      height: 1.5em;
+    &:empty,
+    & > *:empty {
+      min-height: 1.5em;
     }
     input {
       border-width: 1px;
@@ -53,20 +49,16 @@
 }
 
 .Label-Bottom {
-  .Text {
+  > .Text {
     font-size: 80%;
     color: rgba(0, 0, 0, 0.2);
     margin-bottom: 8px;
   }
-  .Reference {
+  > .Reference {
     border-width: 0px;
-    :empty,
-    > *:empty {
-      height: 1.5em;
-    }
-    :empty,
-    > *:empty {
-      height: 1.5em;
+    & :empty,
+    & > *:empty {
+      min-height: 1.5em;
     }
     input {
       border-width: 1px;

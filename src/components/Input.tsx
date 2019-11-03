@@ -1,20 +1,21 @@
 import React from 'react';
-import { Note } from './Note';
+import { Icon } from './Icon';
 
-export interface InputTextMessage {
-    type: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark',
+export interface InputTextFeedback {
+    state: 'valid' | 'invalid',
     icon?: string,
     message: string
 }
 
-export interface InputTextState {
+export interface InputTextValue {
     name: string,
-    state: 'danger' | 'success' | 'info' | 'none',
     value?: any,
-    message?: string | InputTextMessage
+    state: 'valid' | 'invalid',
+    icon?: string,
+    message?: string
 }
-export type InputTextChange = (state: InputTextState) => void;
-export type InputTextValidate = (state: InputTextState) => InputTextState;
+export type InputTextChange = (state: InputTextValue) => void;
+export type InputTextValidate = (state: InputTextValue) => InputTextValue;
 export interface InputTextProps {
     name: string,
     value?: any,
@@ -23,7 +24,7 @@ export interface InputTextProps {
     onConvert?: (value?: string) => any,
     onFormat?: (value?: any) => string,
     type?: "string" | "number" | "date",
-    message?: string | InputTextMessage,
+    feedback?: string | InputTextFeedback,
     title?: string,
     placeholder?: string,
     addonPrefix?: string,
@@ -42,28 +43,28 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     }
     let onChangeInvoke = function (newValue: any) {
         //let { name, onChange, onValidate, onConvert } = props;
-        let inputValue: InputTextState = { name: props.name, state: 'none', value: newValue };
+        let inputValue: InputTextValue = { name: props.name, state: 'valid', value: newValue };
         if (props.onConvert && inputValue.value) {
             inputValue.value = props.onConvert(inputValue.value);
         }
         if (props.onValidate) {
             props.onValidate.every(it => {
                 inputValue = it(inputValue)
-                return inputValue.state === 'none';
+                return inputValue.state === 'valid';
             });
         }
         if (props.onChange) {
             props.onChange(inputValue);
         }
     }
-    //let { name, disabled, value, message, type, addonPrefix, addonPosfix, placeholder, title, onFormat } = props;
-    let addonPrefixHtml = props.addonPrefix ? <div className="input-group-prepend"><span className="input-group-text">{props.addonPrefix}</span></div> : null;
-    let addonPosfixHtml = props.addonPosfix ? <div className="input-group-prepend"><span className="input-group-text">{props.addonPosfix}</span></div> : null;
+
+    let addonPrefixHtml = internal.createAddonHtml(props.addonPrefix);
+    let addonPosfixHtml = internal.createAddonHtml(props.addonPosfix);
+    let feedbackHtml = internal.createFeedbackHtml(props.feedback);
     let valueString = props.value ? props.value.toString() : '';
     if (props.onFormat && props.value) {
         valueString = props.onFormat(props.value);
     }
-    let messageHtml = <Note message={props.message} type="note-input" />;
     let inputHtml = props.disabled === true ?
         <span className="form-control"
             title={props.title || props.placeholder}
@@ -80,12 +81,42 @@ export const InputText: React.FC<InputTextProps> = (props) => {
             title={props.title || props.placeholder}
             placeholder={props.placeholder} />;
     //has-warning
+    console.log(props.feedback, '--->', feedbackHtml);
+    let className = "input-group " + (feedbackHtml ? "was-validated" : "");
     return (
-        <div className="input-group">
+        <div className={className}>
             {addonPrefixHtml}
             {inputHtml}
             {addonPosfixHtml}
-            {messageHtml}
+            {feedbackHtml}
         </div>
     );
+}
+//valid-feedback note-input 
+const internal = {
+    createAddonHtml: (text: string | undefined): any | null => {
+        return text ?
+            <div className="input-group-prepend">
+                <span className="input-group-text">
+                    {text}
+                </span>
+            </div>
+            :
+            null;
+    },
+    createFeedbackHtml: (feedback: undefined | string | InputTextFeedback): any | null => {
+        if (!feedback) {
+            return null;
+        }
+        let it: InputTextFeedback = typeof feedback === "string" ?
+            { state: "valid", message: feedback, icon: "ok" }
+            :
+            feedback;
+        return (
+            <div className={it.state + '-feedback '}>
+                <Icon name={it.icon} />
+                {it.message}
+            </div>
+        );
+    }
 }
