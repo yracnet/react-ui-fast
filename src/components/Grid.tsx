@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+import "./Grid.scss";
 import Help from "./Help";
 import { LabelText } from "./Label";
 
@@ -7,12 +8,12 @@ export interface GridProps {
     cols: Array<number>,
     colsLg?: Array<number>,
     colsMd?: Array<number>,
-    mode?: "bottom" | "top",
+    mode?: "bottom" | "top" | "inline",
     children: ReactElement | Array<ReactElement>
 }
 
 export const Grid: React.FC<GridProps> = (props) => {
-    let mode = props.mode;
+    let mode = props.mode || "top";
     let cols: Array<number> = props.cols;
     let colsMd: Array<number> = Help.parseCols(props.colsMd || cols);
     let colsLg: Array<number> = Help.parseCols(props.colsLg || cols);
@@ -30,6 +31,6 @@ export const Grid: React.FC<GridProps> = (props) => {
         let className = "col-" + col + " col-md-" + colMd + " col-lg-" + colLg;
         return <span key={i} className={className}>{it}</span>
     });
-    let className = "row form-inline " + (props.className || "");
+    let className = "Grid row form-" + mode + " " + (props.className || "");
     return <span className={className}>{contentHtml}</span>;
 }

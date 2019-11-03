@@ -3,11 +3,11 @@ import { Action, ActionProps } from "./components/Action";
 import { Alert, AlertProps } from "./components/Alert";
 import { Button, ButtonProps } from "./components/Button";
 import { Table, TableProps, Column, ColumnProps, TableConfig } from "./components/Table";
-import { FilterText, FilterTextProps, FilterTextState, FilterTextChange } from "./components/Filter";
+import { FilterText, FilterTextProps, FilterTextState, FilterTextChange, FilterTextFactory } from "./components/Filter";
 import { Grid, GridProps } from "./components/Grid";
 import { Icon, IconProps } from "./components/Icon";
 import { Increase, IncreaseProps } from "./components/Increase";
-import { InputText, InputTextProps, InputTextValue, InputTextFeedback, InputTextValidate, InputTextChange } from "./components/Input";
+import { InputText, InputTextProps, InputTextValue, InputTextFeedback, InputTextValidate, InputTextChange, InputTextFactory } from "./components/Input";
 import { LabelText, LabelTextProps } from "./components/Label";
 import { Note, NoteProps, NoteMessage } from "./components/Note";
 import { OutputText, OutputTextProps } from "./components/Output";
@@ -22,10 +22,12 @@ export {
     Button,
     Column,
     FilterText,
+    FilterTextFactory,
     Grid,
     Icon,
     Increase,
     InputText,
+    InputTextFactory,
     LabelText,
     Note,
     OutputText,

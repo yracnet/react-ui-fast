@@ -17,7 +17,7 @@ export const Icon: React.SFC<IconProps> = (props) => {
   let className = ' fa fa-' + props.name + ' fa-' + props.size;
   let iconHtml = <i className={className} ></i>;
   return (
-    <span className={'pr-1 text-' + props.variant}>
+    <span className={'pl-1 pr-1 text-' + props.variant}>
       {iconHtml}
       {props.text}
     </span>

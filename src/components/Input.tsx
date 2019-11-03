@@ -2,20 +2,68 @@ import React from 'react';
 import { Icon } from './Icon';
 
 export interface InputTextFeedback {
-    state: 'valid' | 'invalid',
+    state: 'valid' | 'invalid' | 'ignore',
     icon?: string,
-    message: string
+    message?: string
 }
 
 export interface InputTextValue {
     name: string,
     value?: any,
-    state: 'valid' | 'invalid',
+    state: 'valid' | 'invalid' | 'ignore',
     icon?: string,
     message?: string
 }
-export type InputTextChange = (state: InputTextValue) => void;
-export type InputTextValidate = (state: InputTextValue) => InputTextValue;
+
+export type InputTextValidateObject = { [attr: string]: InputTextValidate[] };
+export type InputTextFeedbackObject = { [attr: string]: InputTextFeedback };
+export const InputTextFactory = {
+    createFeedback: (inputValue: InputTextValue): InputTextFeedback => {
+        return {
+            state: inputValue.state,
+            message: inputValue.message,
+            icon: inputValue.icon || (inputValue.state === "valid" ? "check" : inputValue.state === "invalid" ? "warning" : undefined)
+        };
+    },
+    createFeedbackState: (feedback: undefined | string | InputTextFeedback): any | null => {
+        return typeof feedback === "string" ? "valid" : feedback ? feedback.state : "ignore";
+    },
+    createValidateValue: (inputValue: InputTextValue, validate?: InputTextValidate[]) => {
+        let value: InputTextValue = inputValue;
+        if (validate) {
+            validate.every(it => {
+                value = it(value)
+                return value.state !== 'invalid';
+            });
+        }
+        return value;
+    },
+    createFeedbackObjectFromObject: (valueObject: any, validateObject: InputTextValidateObject, filter?: (it: InputTextValue) => boolean): InputTextFeedbackObject => {
+        let attrs = Object.keys(validateObject);
+        let valueArray: InputTextValue[] = attrs.map(attr => { return { name: attr, state: "ignore", value: valueObject[attr] } });
+        return InputTextFactory.createFeedbackObjectFromArray(valueArray, validateObject, filter);
+    },
+    createFeedbackObjectFromArray: (valueArray: InputTextValue[], validateObject: InputTextValidateObject, filter?: (it: InputTextValue) => boolean): InputTextFeedbackObject => {
+        valueArray = valueArray.map(it => InputTextFactory.createValidateValue(it, validateObject[it.name]));
+        let feedbackObject: InputTextFeedbackObject = {};
+        //feedbackObject = valueArray.filter(it => it && it.state === "invalid")
+        //    .reduce((result, it) => {
+        //        result[it.name] = InputTextFactory.createFeedback(it);
+        //        return result;
+        //    }, feedbackObject)
+        valueArray = valueArray.filter(it => it).filter(filter ? filter : it => it.state === "invalid");
+        valueArray.forEach(it => { feedbackObject[it.name] = InputTextFactory.createFeedback(it) });
+        console.log('valueArray:', valueArray);
+        console.log('feedback:', feedbackObject);
+        return feedbackObject;
+    }
+
+}
+
+export type InputTextChange = (inputValue: InputTextValue) => void;
+
+export type InputTextValidate = (inputValue: InputTextValue) => InputTextValue;
+
 export interface InputTextProps {
     name: string,
     value?: any,
@@ -42,22 +90,17 @@ export const InputText: React.FC<InputTextProps> = (props) => {
         onChangeInvoke(value);
     }
     let onChangeInvoke = function (newValue: any) {
-        //let { name, onChange, onValidate, onConvert } = props;
-        let inputValue: InputTextValue = { name: props.name, state: 'valid', value: newValue };
+        let inputValue: InputTextValue = { name: props.name, state: 'ignore', value: newValue };
         if (props.onConvert && inputValue.value) {
             inputValue.value = props.onConvert(inputValue.value);
         }
         if (props.onValidate) {
-            props.onValidate.every(it => {
-                inputValue = it(inputValue)
-                return inputValue.state === 'valid';
-            });
+            inputValue = InputTextFactory.createValidateValue(inputValue, props.onValidate);
         }
         if (props.onChange) {
             props.onChange(inputValue);
         }
     }
-
     let addonPrefixHtml = internal.createAddonHtml(props.addonPrefix);
     let addonPosfixHtml = internal.createAddonHtml(props.addonPosfix);
     let feedbackHtml = internal.createFeedbackHtml(props.feedback);
@@ -65,8 +108,10 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     if (props.onFormat && props.value) {
         valueString = props.onFormat(props.value);
     }
+    let feedbackState = InputTextFactory.createFeedbackState(props.feedback);
+    let className = "form-control is-" + feedbackState;
     let inputHtml = props.disabled === true ?
-        <span className="form-control"
+        <span className={className}
             title={props.title || props.placeholder}
             placeholder={props.placeholder} >
             {valueString}
@@ -77,14 +122,11 @@ export const InputText: React.FC<InputTextProps> = (props) => {
             value={valueString}
             onChange={inputChange}
             type={props.type}
-            className="form-control"
+            className={className}
             title={props.title || props.placeholder}
             placeholder={props.placeholder} />;
-    //has-warning
-    console.log(props.feedback, '--->', feedbackHtml);
-    let className = "input-group " + (feedbackHtml ? "was-validated" : "");
     return (
-        <div className={className}>
+        <div className="input-group">
             {addonPrefixHtml}
             {inputHtml}
             {addonPosfixHtml}
@@ -92,7 +134,6 @@ export const InputText: React.FC<InputTextProps> = (props) => {
         </div>
     );
 }
-//valid-feedback note-input 
 const internal = {
     createAddonHtml: (text: string | undefined): any | null => {
         return text ?

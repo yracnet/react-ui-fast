@@ -48,8 +48,16 @@ const OPTION = {
     equals: [
         { value: 'eq', label: '=' }
     ]
-};
+}
 
+export const FilterTextFactory = {
+    createValue: (inputState: FilterTextState): FilterTextValue => {
+        return {
+            operator: inputState.operator,
+            value: inputState.value
+        }
+    }
+}
 
 export interface FilterTextValue {
     operator?: string,
@@ -60,6 +68,7 @@ export interface FilterTextState {
     operator?: string,
     value?: any
 }
+
 export type FilterTextChange = (state: FilterTextState) => void;
 
 export interface FilterTextProps {

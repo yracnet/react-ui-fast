@@ -1,0 +1,17 @@
+.Grid {
+  &.form-top {
+    .Label-Top > .Text {
+      margin-bottom: 0;
+    }
+  }
+  &.form-bottom {
+    .Label-Bottom > .Text {
+      margin-top: 0;
+    }
+  }
+  &.form-inline {
+    .Label-Bottom > .Text {
+      margin-left: 5px;
+    }
+  }
+}
