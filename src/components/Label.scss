@@ -29,6 +29,7 @@
   }
   > .Reference {
     border-width: 0px;
+    display: block;
     &:empty,
     & > *:empty {
       min-height: 1.5em;
@@ -63,6 +64,7 @@
   }
   > .Reference {
     border-width: 0px;
+    display: block;
     & :empty,
     & > *:empty {
       min-height: 1.5em;

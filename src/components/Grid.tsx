@@ -31,6 +31,6 @@ export const Grid: React.FC<GridProps> = (props) => {
         let className = "col-" + col + " col-md-" + colMd + " col-lg-" + colLg;
         return <span key={i} className={className}>{it}</span>
     });
-    let className = "Grid row form-" + mode + " " + (props.className || "");
+    let className = "Grid row form-" + mode + " no-gutters " + (props.className || "");
     return <span className={className}>{contentHtml}</span>;
 }

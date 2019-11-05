@@ -16,13 +16,14 @@ export interface IncreaseProps {
   refuseMinimum?: string,
   refuseMaximum?: string,
   appendMode: 'one' | 'row',
+  confirmAppend?: string,
+  confirmRemove?: string,
   onAppend: (index: number) => void,
   onRemove?: (it: any, index: number) => void,
   onContent: (it: any, index: number) => any,
   onAction?: (it: any, index: number) => any,
   children?: any | Array<any>
 }
-//white-space: nowrap;
 
 export const Increase: React.FC<IncreaseProps> = (props) => {
   if (props.hide === true) {
@@ -43,8 +44,20 @@ export const Increase: React.FC<IncreaseProps> = (props) => {
     .map((it, i) => <li key={i} className="list-group-item Increase-Item">
       <div className="Increase-Action Animate">
         {props.onAction ? props.onAction(it, i) : null}
-        <Button name="append" icon="plus" onClick={e => onAppendInvoke(i)} hide={props.appendMode === 'one'} variant="success" refuse={refuseMaximum} />
-        <Button name="append" icon="trash" onClick={e => onRemoveInvoke(it, i)} hide={!props.onRemove} variant="danger" refuse={refuseMinimum} />
+        <Button name="append"
+          icon="plus"
+          onClick={e => onAppendInvoke(i)}
+          hide={props.appendMode === 'one'}
+          variant="success"
+          confirm={props.confirmAppend}
+          refuse={refuseMaximum} />
+        <Button name="remove"
+          icon="trash"
+          onClick={e => onRemoveInvoke(it, i)}
+          hide={!props.onRemove}
+          variant="danger"
+          confirm={props.confirmRemove}
+          refuse={refuseMinimum} />
       </div>
       <div className="Increase-Content">
         {props.onContent(it, i)}
