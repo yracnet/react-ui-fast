@@ -103,6 +103,11 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     }
     let addonPrefixHtml = internal.createAddonHtml(props.addonPrefix);
     let addonPosfixHtml = internal.createAddonHtml(props.addonPosfix);
+    if (props.type === "date") {
+        addonPosfixHtml = <div className="input-group-prepend">
+            <Icon name="calendar" size="lg" />
+        </div>;
+    }
     let feedbackHtml = internal.createFeedbackHtml(props.feedback);
     let valueString = props.value ? props.value.toString() : '';
     if (props.onFormat && props.value) {

@@ -1,5 +1,6 @@
 import React from 'react';
 import Help from './Help';
+import "./Filter.scss";
 const OPTION = {
     number: [
         { value: '', label: '' },
@@ -47,6 +48,9 @@ const OPTION = {
     ],
     equals: [
         { value: 'eq', label: '=' }
+    ],
+    like: [
+        { value: 'like', label: '%' }
     ]
 }
 
@@ -75,7 +79,7 @@ export interface FilterTextProps {
     name: string,
     value?: FilterTextValue,
     onChange?: FilterTextChange,
-    option?: 'all' | 'number' | 'string' | 'date' | 'equals',
+    option?: 'all' | 'number' | 'string' | 'date' | 'equals' | 'like',
     onConvert?: (value?: string) => any,
     onFormat?: (value?: any) => string,
     label?: string,
@@ -121,15 +125,17 @@ export const FilterText: React.FC<FilterTextProps> = (props) => {
     if (filter && filter.operator && filter.operator !== 'none') {
         htmlButton = <button className="btn btn-sm  btn-danger" onClick={removeClick}> X</button>;
         if (filter.operator !== 'isNull' && filter.operator !== 'notNull') {
-            className = className + ' col-3';
+            className = className + ' Option';
             let valueText = filter.value ? filter.value.toString() : '';
             if (props.onFormat) {
                 valueText = props.onFormat(filter.value);
             }
-            htmlInput = <input className="form-control" value={valueText} name="value" onChange={inputChange} />;
+            let type = option in ['all', 'equals', 'like', 'string'] ? 'text' : option;
+            let ph = type === 'date' ? 'dd/MM/yyyy' : '';
+            htmlInput = <input className="form-control" value={valueText} type={type} placeholder={ph} name="value" onChange={inputChange} />;
         }
     } else if (htmlOptions.length === 1) {
-        className = className + ' col-3';
+        className = className + ' Hiden';
         let valueText = filter.value ? filter.value.toString() : '';
         if (props.onFormat) {
             valueText = props.onFormat(filter.value);
@@ -137,7 +143,7 @@ export const FilterText: React.FC<FilterTextProps> = (props) => {
         htmlInput = <input className="form-control" value={valueText} name="value" onChange={inputChangeEquals} />;
     }
     return (
-        <div className="input-group input-group-sm input-filter">
+        <div className="Filter input-group input-group-sm input-filter">
             {htmlLabel}
             <select className={className} value={filter.operator} name="operator" onChange={inputChange}>
                 {htmlOptions}

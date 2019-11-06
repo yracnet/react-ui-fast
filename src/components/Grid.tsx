@@ -8,6 +8,7 @@ export interface GridProps {
     cols: Array<number>,
     colsLg?: Array<number>,
     colsMd?: Array<number>,
+    narrow?: boolean,
     mode?: "bottom" | "top" | "inline",
     children: ReactElement | Array<ReactElement>
 }
@@ -31,6 +32,6 @@ export const Grid: React.FC<GridProps> = (props) => {
         let className = "col-" + col + " col-md-" + colMd + " col-lg-" + colLg;
         return <span key={i} className={className}>{it}</span>
     });
-    let className = "Grid row form-" + mode + " no-gutters " + (props.className || "");
+    let className = "Grid row form-" + mode + " " + (props.narrow ? "no-gutters" : " ") + " " + (props.className || "");
     return <span className={className}>{contentHtml}</span>;
 }
