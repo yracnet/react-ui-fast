@@ -28,11 +28,11 @@ export const Panel: React.FC<PanelProps> = (props) => {
     let footer = children.find(it => it.type === 'footer');
     let body = children.filter(it => it !== header && it !== footer && it !== title);
     let headerHtml = header ? <header className={mode + '-header bg-' + variant + ' text-white h6'}><Icon name={props.icon} size="lg" />{header.props.children}</header> : null;
-    let titleHtml = title ? <strong className={mode + '-title'}>{title.props.children}</strong> : null;
+    let titleHtml = title ? <strong className={mode + '-title Title'}>{title.props.children}</strong> : null;
     let bodyHtml = body ? <div className={mode + '-body'}>{titleHtml}{body}</div> : null;
     let footerHtml = footer ? <footer className={mode + '-footer'}>{footer.props.children}</footer> : null;
     return mode === "modal" ?
-        <div className="modal fade show modal-open">
+        <div className="Model modal fade show modal-open">
             <div className={"modal-dialog modal-lg w" + width}>
                 <div className="modal-content">
                     {headerHtml}
@@ -43,7 +43,7 @@ export const Panel: React.FC<PanelProps> = (props) => {
             <div className="modal-background"></div>
         </div>
         :
-        <div className={mode + " mb-1 border-" + variant + " w" + width}>
+        <div className={'Panel ' + mode + " mb-1 border-" + variant + " w" + width}>
             {headerHtml}
             {bodyHtml}
             {footerHtml}

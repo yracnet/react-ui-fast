@@ -47,3 +47,14 @@
 .bg-default.text-white{
   color: black!important;
 }
+
+.Panel{
+  .Title {
+    display: block;
+    sub{
+      font-weight: normal;
+      display: inline;
+      min-height: 1em;
+    }
+  }
+}
