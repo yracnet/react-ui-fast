@@ -73,12 +73,12 @@ export interface FilterTextState {
     value?: any
 }
 
-export type FilterTextChange = (state: FilterTextState) => void;
+export type FnFilterTextChange = (state: FilterTextState) => void;
 
 export interface FilterTextProps {
     name: string,
     value?: FilterTextValue,
-    onChange?: FilterTextChange,
+    onChange?: FnFilterTextChange,
     option?: 'all' | 'number' | 'string' | 'date' | 'equals' | 'like',
     onConvert?: (value?: string) => any,
     onFormat?: (value?: any) => string,

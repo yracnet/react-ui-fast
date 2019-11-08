@@ -95,11 +95,17 @@ export class Table extends React.PureComponent<TableProps, TableConfig> {
         let dataRows = values.map((valueData, i) => {
             let valuePk = valueData[pk];
             let dataRow = columns.map((it, j) => {
-                let { attr, align, title, onFormat, className } = it;
-                let valueAttr = valueData[attr];
-                valueAttr = onFormat ? onFormat(valueAttr) : valueAttr;
-                let classNameTD = 'col-data text-' + (align || 'left') + ' ' + className;
-                return <td key={i + '-' + j} className={classNameTD} title={title + ': ' + valueAttr}>{valueAttr}</td>
+                let { attr, align, title, onFormat, onContent, className } = it;
+                if (onContent) {
+                    let content = onContent(it, j);
+                    let classNameTD = 'col-data text-' + (align || 'left') + ' ' + className;
+                    return <td key={i + '-' + j} className={classNameTD} title={title}>{content}</td>
+                } else {
+                    let valueAttr = valueData[attr];
+                    valueAttr = onFormat ? onFormat(valueAttr) : valueAttr;
+                    let classNameTD = 'col-data text-' + (align || 'left') + ' ' + className;
+                    return <td key={i + '-' + j} className={classNameTD} title={title + ': ' + valueAttr}>{valueAttr}</td>
+                }
             });
             let className = selectPks.includes(valuePk) ? 'table-active row-select' : '';
             return <tr key={i} className={className} onClick={o => this.onSelectRow(valueData)} >{dataRow}</tr>;
@@ -144,6 +150,7 @@ export interface ColumnProps {
     align?: "right" | "left" | "center",
     width?: string,
     className?: string,
+    onContent?: (o: any, i?: number) => any,
     onFormat?: (o: any) => string
 }
 

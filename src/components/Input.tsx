@@ -14,9 +14,9 @@ export interface InputTextValue {
     icon?: string,
     message?: string
 }
-
-export type InputTextValidateObject = { [attr: string]: InputTextValidate[] };
-export type InputTextFeedbackObject = { [attr: string]: InputTextFeedback };
+export type TypeInputTextValidate = undefined | FnInputTextValidate[];
+export type ObjectInputTextValidate = { [attr: string]: TypeInputTextValidate };
+export type ObjectInputTextFeedback = { [attr: string]: InputTextFeedback };
 export const InputTextFactory = {
     createFeedback: (inputValue: InputTextValue): InputTextFeedback => {
         return {
@@ -28,7 +28,7 @@ export const InputTextFactory = {
     createFeedbackState: (feedback: undefined | string | InputTextFeedback): any | null => {
         return typeof feedback === "string" ? "valid" : feedback ? feedback.state : "ignore";
     },
-    createValidateValue: (inputValue: InputTextValue, validate?: InputTextValidate[]) => {
+    createValidateValue: (inputValue: InputTextValue, validate: TypeInputTextValidate) => {
         let value: InputTextValue = inputValue;
         if (validate) {
             validate.every(it => {
@@ -38,14 +38,14 @@ export const InputTextFactory = {
         }
         return value;
     },
-    createFeedbackObjectFromObject: (valueObject: any, validateObject: InputTextValidateObject, filter?: (it: InputTextValue) => boolean): InputTextFeedbackObject => {
+    createFeedbackObjectFromObject: (valueObject: any, validateObject: ObjectInputTextValidate, filter?: (it: InputTextValue) => boolean): ObjectInputTextFeedback => {
         let attrs = Object.keys(validateObject);
         let valueArray: InputTextValue[] = attrs.map(attr => { return { name: attr, state: "ignore", value: valueObject[attr] } });
         return InputTextFactory.createFeedbackObjectFromArray(valueArray, validateObject, filter);
     },
-    createFeedbackObjectFromArray: (valueArray: InputTextValue[], validateObject: InputTextValidateObject, filter?: (it: InputTextValue) => boolean): InputTextFeedbackObject => {
+    createFeedbackObjectFromArray: (valueArray: InputTextValue[], validateObject: ObjectInputTextValidate, filter?: (it: InputTextValue) => boolean): ObjectInputTextFeedback => {
         valueArray = valueArray.map(it => InputTextFactory.createValidateValue(it, validateObject[it.name]));
-        let feedbackObject: InputTextFeedbackObject = {};
+        let feedbackObject: ObjectInputTextFeedback = {};
         //feedbackObject = valueArray.filter(it => it && it.state === "invalid")
         //    .reduce((result, it) => {
         //        result[it.name] = InputTextFactory.createFeedback(it);
@@ -60,15 +60,15 @@ export const InputTextFactory = {
 
 }
 
-export type InputTextChange = (inputValue: InputTextValue) => void;
+export type FnInputTextChange = (inputValue: InputTextValue) => void;
 
-export type InputTextValidate = (inputValue: InputTextValue) => InputTextValue;
+export type FnInputTextValidate = (inputValue: InputTextValue) => InputTextValue;
 
 export interface InputTextProps {
     name: string,
     value?: any,
-    onChange?: InputTextChange,
-    onValidate?: InputTextValidate[];
+    onChange?: FnInputTextChange,
+    onValidate?: FnInputTextValidate[];
     onConvert?: (value?: string) => any,
     onFormat?: (value?: any) => string,
     type?: "string" | "number" | "date",
