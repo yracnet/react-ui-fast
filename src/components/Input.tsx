@@ -84,7 +84,7 @@ export const InputText: React.FC<InputTextProps> = (props) => {
             props.onChange(inputValue);
         }
     }
-    let addonPrefixHtml = internal.createAddonHtml(props.addonPrefix);
+    let addonPrefixHtml = internal.searchAddonHtml(props.children) || internal.createAddonHtml(props.addonPrefix);
     let addonPosfixHtml = internal.createAddonHtml(props.addonPosfix);
     const type = props.type || 'string';
     if (type === "date") {
@@ -148,6 +148,21 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     );
 }
 const internal = {
+    searchAddonHtml: (children: any | any[] | undefined): any | null => {
+        if (Array.isArray(children)) {
+            return children.map(it =>
+                <div className="input-group-prepend">
+                    {it}
+                </div>
+            )
+        }
+        return children ?
+            <div className="input-group-prepend">
+                {children}
+            </div>
+            :
+            null;
+    },
     createAddonHtml: (text: string | undefined): any | null => {
         return text ?
             <div className="input-group-prepend">

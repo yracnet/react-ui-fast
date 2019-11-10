@@ -50,14 +50,56 @@ export default class Showcase extends React.Component {
     return (
       <div>
 
-        <InputText name="s" type="option" options={options}
-          onChange={onChange1} />
+        <InputText name="a">
+          <select className="custom-select input-group-text">
+            <option>NO*</option>
+            <option>SI</option>
+          </select>
+          <select className="custom-select input-group-text">
+            <option>NO*</option>
+            <option>SI</option>
+          </select>
+        </InputText>
+        <InputText name="a" disabled={true}>
+          <select className="custom-select input-group-text">
+            <option>NO*</option>
+            <option>SI</option>
+          </select>
+          <select className="custom-select input-group-text">
+            <option>NO*</option>
+            <option>SI</option>
+          </select>
+        </InputText>
 
-        <Select
-          value={value1}
-          options={options}
-          onChange={onChange1}
-        />
+        <div className="input-group mb-3">
+          <div className="input-group-prepend">
+            <div className="input-group-text">
+              <input type="checkbox" />
+            </div>
+          </div>
+          <input type="text" className="form-control" aria-label="Text input with checkbox" />
+        </div>
+        <div className="input-group mb-3">
+          <div className="input-group-prepend">
+            <select className="form-control input-group-text">
+              <option>SI</option>
+              <option>NO</option>
+            </select>
+          </div>
+          <input type="text" className="form-control" aria-label="Text input with checkbox" />
+          <input type="text" className="form-control" aria-label="Text input with checkbox" />
+        </div>
+
+
+        <div className="input-group mb-3">
+          <div className="input-group-append">
+            <select className="custom-select input-group-text">
+              <option value="SI">SI</option>
+              <option value="NO">NO</option>
+            </select>
+          </div>
+          <input type="text" className="form-control" aria-label="Text input with checkbox" />
+        </div>
       </div>
     );
   }
