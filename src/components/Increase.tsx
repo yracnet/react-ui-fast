@@ -68,6 +68,7 @@ export const Increase: React.FC<IncreaseProps> = (props) => {
       <Button name="append" icon="plus" onClick={e => onAppendInvoke(0)} variant="success" refuse={refuseMaximum} />
     </div>
     : null;
+
   let variant = props.variant || 'default';
   let children = help.parseArray(props.children);
   let header = children.find(it => it.type === 'header');
@@ -76,13 +77,18 @@ export const Increase: React.FC<IncreaseProps> = (props) => {
   let headerHtml = header ? <header className={'card-header bg-' + variant + ' text-white h6'}><Icon name={props.icon} size="lg" />{header.props.children}</header> : null;
   let titleHtml = title ? <strong className='card-title'><Icon name={props.icon} size="lg" hide={!!headerHtml} />   {title.props.children} </strong> : null;
 
-  return <div className="card Increase">
-    {headerHtml}
+  let bodyHtml = titleHtml || appendDefaultHtml || body.length ?
     <div className='card-body'>
       {titleHtml}
       {appendDefaultHtml}
       {body}
     </div>
+    :
+    null;
+
+  return <div className="card Increase">
+    {headerHtml}
+    {bodyHtml}
     <ul className="list-group list-group-flush">
       {contentHtml}
     </ul>

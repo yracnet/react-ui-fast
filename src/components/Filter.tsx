@@ -93,11 +93,11 @@ export const FilterText: React.FC<FilterTextProps> = (props) => {
     let filter: FilterTextValue = props.value || {
         operator: '',
         value: ''
-    };
-    let inputChangeEquals = function (event: React.FormEvent<HTMLInputElement | HTMLSelectElement>) {
+    }
+    let inputChangeSingle = function (event: React.FormEvent<HTMLInputElement | HTMLSelectElement>) {
         let { name, value } = event.currentTarget;
         let filterValue: any = Help.appendAttr(name, value, props.value);
-        filterValue.operator = 'eq';
+        filterValue.operator = props.option === 'equals' ? 'eq' : 'like';
         onChangeInvoke(filterValue);
     }
     let inputChange = function (event: React.FormEvent<HTMLInputElement | HTMLSelectElement>) {
@@ -135,12 +135,14 @@ export const FilterText: React.FC<FilterTextProps> = (props) => {
             htmlInput = <input className="form-control" value={valueText} type={type} placeholder={ph} name="value" onChange={inputChange} />;
         }
     } else if (htmlOptions.length === 1) {
-        className = className + ' Hiden';
         let valueText = filter.value ? filter.value.toString() : '';
         if (props.onFormat) {
             valueText = props.onFormat(filter.value);
         }
-        htmlInput = <input className="form-control" value={valueText} name="value" onChange={inputChangeEquals} />;
+        htmlInput = <input className="form-control" value={valueText} name="value" onChange={inputChangeSingle} />;
+    }
+    if (htmlOptions.length === 1) {
+        className = className + ' Hiden';
     }
     return (
         <div className="Filter input-group input-group-sm input-filter">

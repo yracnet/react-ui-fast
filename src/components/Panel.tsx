@@ -3,23 +3,31 @@ import help from './Help';
 import './Panel.scss';
 import { Icon } from './Icon';
 
-
+type TypeCol = undefined | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 export interface PanelProps {
     title?: string,
     className?: string,
     hide?: boolean,
-    width?: '50' | '60' | '80' | '90',
+    colXl?: TypeCol,
+    colLg?: TypeCol,
+    colMd?: TypeCol,
+    colSm?: TypeCol,
+    col?: TypeCol,
+    align?: 'center' | 'left' | 'right',
     icon?: string,
     mode?: 'card' | 'panel' | 'subpanel' | 'modal',
     variant?: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark',
     children?: any | Array<any>
 }
 
+let appendCol = function (col: undefined | number, type: string, className: string) {
+    return col ? className + " col-" + type + "-" + col : className;
+}
+
 export const Panel: React.FC<PanelProps> = (props) => {
     if (props.hide === true) {
         return null;
     }
-    let width = props.width || 'NONE';
     let mode = props.mode || 'card';
     let variant = props.variant || 'default';
     let children = help.parseArray(props.children);
@@ -31,9 +39,16 @@ export const Panel: React.FC<PanelProps> = (props) => {
     let titleHtml = title ? <strong className={mode + '-title Title'}>{title.props.children}</strong> : null;
     let bodyHtml = body ? <div className={mode + '-body'}>{titleHtml}{body}</div> : null;
     let footerHtml = footer ? <footer className={mode + '-footer'}>{footer.props.children}</footer> : null;
+    let classWidth = props.col ? 'col-' + props.col : '';
+    classWidth = appendCol(props.colLg, 'lg', classWidth);
+    classWidth = appendCol(props.colMd, 'md', classWidth);
+    classWidth = appendCol(props.colSm, 'sm', classWidth);
+    classWidth = appendCol(props.colXl, 'xl', classWidth);
+
+    classWidth = props.align ? classWidth + ' col-' + props.align : classWidth;
     return mode === "modal" ?
-        <div className="Model modal fade show modal-open">
-            <div className={"modal-dialog modal-lg w" + width}>
+        <div className="Modal modal fade show modal-open">
+            <div className={"modal-dialog modal-lg " + classWidth}>
                 <div className="modal-content">
                     {headerHtml}
                     {bodyHtml}
@@ -43,7 +58,7 @@ export const Panel: React.FC<PanelProps> = (props) => {
             <div className="modal-background"></div>
         </div>
         :
-        <div className={'Panel ' + mode + " mb-1 border-" + variant + " w" + width}>
+        <div className={'Panel ' + mode + " mb-1 border-" + variant + " " + classWidth}>
             {headerHtml}
             {bodyHtml}
             {footerHtml}

@@ -11,50 +11,73 @@
 .modal-open {
   display: block;
 }
-.w90{
+.w90 {
   max-width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
-.w80{
+.w80 {
   max-width: 80%;
   margin-left: auto;
   margin-right: auto;
 }
-.w60{
+.w60 {
   max-width: 60%;
   margin-left: auto;
   margin-right: auto;
 }
-.w50{
+.w50 {
   max-width: 50%;
   margin-left: auto;
   margin-right: auto;
 }
-@media (max-width: 700px) { 
-
-.w90,
-.w80,
-.w60,
-.w50{
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
+@media (max-width: 700px) {
+  .w90,
+  .w80,
+  .w60,
+  .w50 {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .bg-secondary.text-white,
-.bg-default.text-white{
-  color: black!important;
+.bg-default.text-white {
+  color: black !important;
 }
 
-.Panel{
+.Panel {
+  padding-right: 0;
+  padding-left: 0;
   .Title {
     display: block;
-    sub{
+    sub {
       font-weight: normal;
       display: inline;
       min-height: 1em;
     }
+  }
+  &.col-center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &.col-left {
+    margin-right: auto;
+  }
+  &.col-right {
+    margin-left: auto;
+  }
+}
+.Modal {
+  .col-center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .col-left {
+    margin-right: auto;
+  }
+  .col-right {
+    margin-left: auto;
   }
 }

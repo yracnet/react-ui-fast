@@ -1,5 +1,14 @@
 import React from 'react';
 import { Icon } from './Icon';
+import './Input.scss';
+
+//-------------DATE-----------------
+import * as dayjs from 'dayjs';
+import { DatePicker } from '@evneandrey/react-datepicker';
+import '@evneandrey/react-datepicker/assets/styles/calendar.scss';
+
+//-------------SELECT---------------
+import Select, { GroupedOptionsType, OptionsType, ValueType, ActionMeta, OptionTypeBase } from 'react-select';
 
 export interface InputTextFeedback {
     state: 'valid' | 'invalid' | 'ignore',
@@ -7,9 +16,15 @@ export interface InputTextFeedback {
     message?: string
 }
 
+interface InputTextOption extends OptionTypeBase {
+    value?: string,
+    label?: string
+}
+
 export interface InputTextValue {
     name: string,
     value?: any,
+    option?: InputTextOption,
     state: 'valid' | 'invalid' | 'ignore',
     icon?: string,
     message?: string
@@ -17,6 +32,142 @@ export interface InputTextValue {
 export type TypeInputTextValidate = undefined | FnInputTextValidate[];
 export type ObjectInputTextValidate = { [attr: string]: TypeInputTextValidate };
 export type ObjectInputTextFeedback = { [attr: string]: InputTextFeedback };
+
+export type FnInputTextChange = (inputValue: InputTextValue) => void;
+
+export type FnInputTextValidate = (inputValue: InputTextValue) => InputTextValue;
+
+export interface InputTextProps {
+    name: string,
+    value?: any,
+    onChange?: FnInputTextChange,
+    onValidate?: FnInputTextValidate[];
+    onConvert?: (value?: string) => any,
+    onFormat?: (value?: any) => string,
+    type?: "text" | "number" | "date" | "password" | "option",
+    feedback?: string | InputTextFeedback,
+    title?: string,
+    placeholder?: string,
+    addonPrefix?: string,
+    addonPosfix?: string,
+    dateFormat?: string,
+    options?: GroupedOptionsType<InputTextOption> | OptionsType<InputTextOption>,
+    hide?: boolean,
+    disabled?: boolean
+}
+
+export const InputText: React.FC<InputTextProps> = (props) => {
+    if (props.hide === true) {
+        return null;
+    }
+    let inputChangeDate = function (date: dayjs.Dayjs, rawValue: string) {
+        onChangeInvoke(rawValue);
+    }
+    let inputChangeOption = function (option: ValueType<any>, action: ActionMeta) {
+        let newValue = option ? option.value : undefined;
+        onChangeInvoke(newValue, option);
+    }
+    let inputChange = function (event: React.FormEvent<HTMLInputElement | HTMLSelectElement>) {
+        let { value } = event.currentTarget;
+        onChangeInvoke(value);
+    }
+    let onChangeInvoke = function (newValue: any, option?: any) {
+        let inputValue: InputTextValue = { name: props.name, state: 'ignore', value: newValue, option: option };
+        if (props.onConvert && inputValue.value) {
+            inputValue.value = props.onConvert(inputValue.value);
+        }
+        if (props.onValidate) {
+            inputValue = InputTextFactory.createValidateValue(inputValue, props.onValidate);
+        }
+        if (props.onChange) {
+            props.onChange(inputValue);
+        }
+    }
+    let addonPrefixHtml = internal.createAddonHtml(props.addonPrefix);
+    let addonPosfixHtml = internal.createAddonHtml(props.addonPosfix);
+    const type = props.type || 'string';
+    if (type === "date") {
+        addonPosfixHtml = <div className="input-group-prepend">
+            <Icon name="calendar" size="lg" />
+        </div>;
+    }
+    let feedbackHtml = internal.createFeedbackHtml(props.feedback);
+    let valueString = props.value ? props.value.toString() : '';
+    if (props.onFormat && props.value) {
+        valueString = props.onFormat(props.value);
+    }
+    let feedbackState = InputTextFactory.createFeedbackState(props.feedback);
+    let className = "form-control is-" + feedbackState;
+    let inputHtml = props.disabled === true ?
+        <span className={className + ' is-disabled'}
+            title={props.title || props.placeholder}
+            placeholder={props.placeholder} >
+            {valueString}
+        </span>
+        :
+        type === "option" ?
+            <Select
+                name={props.name}
+                className={className}
+                value={valueString}
+                onChange={inputChangeOption}
+                title={props.title || props.placeholder}
+                placeholder={props.placeholder}
+                options={props.options} />
+            :
+            type === "date" ?
+                <div className={className}>
+                    <DatePicker value={valueString}
+                        onChange={inputChangeDate}
+                        dateFormat={props.dateFormat || 'DD/MM/YYYY'}
+                        placeholder={props.placeholder}
+                    />
+                </div>
+                :
+                <input
+                    name={props.name}
+                    value={valueString}
+                    onChange={inputChange}
+                    type={type}
+                    className={className}
+                    title={props.title || props.placeholder}
+                    placeholder={props.placeholder} />;
+    return (
+        <div className={'input-group Input-' + type}>
+            {addonPrefixHtml}
+            {inputHtml}
+            {addonPosfixHtml}
+            {feedbackHtml}
+        </div>
+    );
+}
+const internal = {
+    createAddonHtml: (text: string | undefined): any | null => {
+        return text ?
+            <div className="input-group-prepend">
+                <span className="input-group-text">
+                    {text}
+                </span>
+            </div>
+            :
+            null;
+    },
+    createFeedbackHtml: (feedback: undefined | string | InputTextFeedback): any | null => {
+        if (!feedback) {
+            return null;
+        }
+        let it: InputTextFeedback = typeof feedback === "string" ?
+            { state: "valid", message: feedback, icon: "ok" }
+            :
+            feedback;
+        return (
+            <div className={it.state + '-feedback '}>
+                <Icon name={it.icon} />
+                {it.message}
+            </div>
+        );
+    }
+}
 export const InputTextFactory = {
     createFeedback: (inputValue: InputTextValue): InputTextFeedback => {
         return {
@@ -58,111 +209,4 @@ export const InputTextFactory = {
         return feedbackObject;
     }
 
-}
-
-export type FnInputTextChange = (inputValue: InputTextValue) => void;
-
-export type FnInputTextValidate = (inputValue: InputTextValue) => InputTextValue;
-
-export interface InputTextProps {
-    name: string,
-    value?: any,
-    onChange?: FnInputTextChange,
-    onValidate?: FnInputTextValidate[];
-    onConvert?: (value?: string) => any,
-    onFormat?: (value?: any) => string,
-    type?: "string" | "number" | "date",
-    feedback?: string | InputTextFeedback,
-    title?: string,
-    placeholder?: string,
-    addonPrefix?: string,
-    addonPosfix?: string,
-    hide?: boolean,
-    disabled?: boolean
-}
-
-export const InputText: React.FC<InputTextProps> = (props) => {
-    if (props.hide === true) {
-        return null;
-    }
-    let inputChange = function (event: React.FormEvent<HTMLInputElement | HTMLSelectElement>) {
-        let { value } = event.currentTarget;
-        onChangeInvoke(value);
-    }
-    let onChangeInvoke = function (newValue: any) {
-        let inputValue: InputTextValue = { name: props.name, state: 'ignore', value: newValue };
-        if (props.onConvert && inputValue.value) {
-            inputValue.value = props.onConvert(inputValue.value);
-        }
-        if (props.onValidate) {
-            inputValue = InputTextFactory.createValidateValue(inputValue, props.onValidate);
-        }
-        if (props.onChange) {
-            props.onChange(inputValue);
-        }
-    }
-    let addonPrefixHtml = internal.createAddonHtml(props.addonPrefix);
-    let addonPosfixHtml = internal.createAddonHtml(props.addonPosfix);
-    if (props.type === "date") {
-        addonPosfixHtml = <div className="input-group-prepend">
-            <Icon name="calendar" size="lg" />
-        </div>;
-    }
-    let feedbackHtml = internal.createFeedbackHtml(props.feedback);
-    let valueString = props.value ? props.value.toString() : '';
-    if (props.onFormat && props.value) {
-        valueString = props.onFormat(props.value);
-    }
-    let feedbackState = InputTextFactory.createFeedbackState(props.feedback);
-    let className = "form-control is-" + feedbackState;
-    let inputHtml = props.disabled === true ?
-        <span className={className}
-            title={props.title || props.placeholder}
-            placeholder={props.placeholder} >
-            {valueString}
-        </span>
-        :
-        <input
-            name={props.name}
-            value={valueString}
-            onChange={inputChange}
-            type={props.type}
-            className={className}
-            title={props.title || props.placeholder}
-            placeholder={props.placeholder} />;
-    return (
-        <div className="input-group">
-            {addonPrefixHtml}
-            {inputHtml}
-            {addonPosfixHtml}
-            {feedbackHtml}
-        </div>
-    );
-}
-const internal = {
-    createAddonHtml: (text: string | undefined): any | null => {
-        return text ?
-            <div className="input-group-prepend">
-                <span className="input-group-text">
-                    {text}
-                </span>
-            </div>
-            :
-            null;
-    },
-    createFeedbackHtml: (feedback: undefined | string | InputTextFeedback): any | null => {
-        if (!feedback) {
-            return null;
-        }
-        let it: InputTextFeedback = typeof feedback === "string" ?
-            { state: "valid", message: feedback, icon: "ok" }
-            :
-            feedback;
-        return (
-            <div className={it.state + '-feedback '}>
-                <Icon name={it.icon} />
-                {it.message}
-            </div>
-        );
-    }
 }

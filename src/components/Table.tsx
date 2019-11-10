@@ -97,7 +97,7 @@ export class Table extends React.PureComponent<TableProps, TableConfig> {
             let dataRow = columns.map((it, j) => {
                 let { attr, align, title, onFormat, onContent, className } = it;
                 if (onContent) {
-                    let content = onContent(it, j);
+                    let content = onContent(valueData, j);
                     let classNameTD = 'col-data text-' + (align || 'left') + ' ' + className;
                     return <td key={i + '-' + j} className={classNameTD} title={title}>{content}</td>
                 } else {
