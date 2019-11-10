@@ -1,6 +1,10 @@
 @import "../../node_modules/bootstrap/scss/functions";
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/mixins";
+.is-disabled {
+  background-color: rgba(200, 200, 200, 0.16);
+  border-color: rgba(200, 200, 200, 0.16);
+}
 .Input-text {
 }
 .Input-password {
@@ -22,8 +26,33 @@
     line-height: $input-line-height;
   }
 }
-
-.is-disabled {
-  background-color: rgba(200, 200, 200, 0.16);
-  border-color: rgba(200, 200, 200, 0.16);
+.Input-option {
+  .form-control {
+    padding: 0;
+    margin: 0 inherit;
+  }
+  input:hover,
+  input:focus {
+    border: 0;
+  }
+  .select__control,
+  .select__control.select__control--is-focused {
+    width: 100%;
+    border: 0;
+    min-height: 1.5em;
+    background: transparent;
+    box-shadow: 0 0 0 0 transparent;
+  }
+  .select__indicator {
+    margin: 0;
+    padding: 0;
+  }
+  .select__control,
+  .select__value-container,
+  .select__placeholder,
+  .select__input,
+  .select__input > input {
+    margin: 0;
+    padding: 0;
+  }
 }

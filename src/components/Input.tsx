@@ -24,7 +24,7 @@ interface InputTextOption extends OptionTypeBase {
 export interface InputTextValue {
     name: string,
     value?: any,
-    option?: InputTextOption,
+    object?: InputTextOption | Date,
     state: 'valid' | 'invalid' | 'ignore',
     icon?: string,
     message?: string
@@ -60,19 +60,20 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     if (props.hide === true) {
         return null;
     }
-    let inputChangeDate = function (date: dayjs.Dayjs, rawValue: string) {
-        onChangeInvoke(rawValue);
+    let inputChangeDate = function (value: dayjs.Dayjs, rawValue: string) {
+        let date = value ? value.toDate() : undefined;
+        onChangeInvoke(rawValue, date);
     }
     let inputChangeOption = function (option: ValueType<any>, action: ActionMeta) {
-        let newValue = option ? option.value : undefined;
-        onChangeInvoke(newValue, option);
+        let rawValue = option ? option.value : undefined;
+        onChangeInvoke(rawValue, option);
     }
     let inputChange = function (event: React.FormEvent<HTMLInputElement | HTMLSelectElement>) {
         let { value } = event.currentTarget;
         onChangeInvoke(value);
     }
-    let onChangeInvoke = function (newValue: any, option?: any) {
-        let inputValue: InputTextValue = { name: props.name, state: 'ignore', value: newValue, option: option };
+    let onChangeInvoke = function (rawValue: any, object?: any) {
+        let inputValue: InputTextValue = { name: props.name, state: 'ignore', value: rawValue, object: object };
         if (props.onConvert && inputValue.value) {
             inputValue.value = props.onConvert(inputValue.value);
         }
@@ -96,6 +97,10 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     if (props.onFormat && props.value) {
         valueString = props.onFormat(props.value);
     }
+    if (type === "option" && props.options) {
+        let options = [...props.options];
+        valueString = options.find(it => it.value === valueString);
+    }
     let feedbackState = InputTextFactory.createFeedbackState(props.feedback);
     let className = "form-control is-" + feedbackState;
     let inputHtml = props.disabled === true ?
@@ -108,6 +113,7 @@ export const InputText: React.FC<InputTextProps> = (props) => {
         type === "option" ?
             <Select
                 name={props.name}
+                classNamePrefix="select"
                 className={className}
                 value={valueString}
                 onChange={inputChangeOption}
