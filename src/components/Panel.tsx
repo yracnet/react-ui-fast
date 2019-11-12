@@ -46,6 +46,7 @@ export const Panel: React.FC<PanelProps> = (props) => {
     classWidth = appendCol(props.colXl, 'xl', classWidth);
 
     classWidth = props.align ? classWidth + ' col-' + props.align : classWidth;
+    classWidth = classWidth + ' ' + props.className;
     return mode === "modal" ?
         <div className="Modal modal fade show modal-open">
             <div className={"modal-dialog modal-lg " + classWidth}>

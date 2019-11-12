@@ -1,0 +1,43 @@
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+.Stepper {
+  &.mode-horizontal {
+    .stepper-process {
+      margin-bottom: 0px;
+      padding-bottom: 0px;
+      border-bottom: 0px;
+    }
+  }
+  &.mode-vertical {
+    .stepper-links {
+      display: inline-block;
+    }
+    .stepper-body {
+      display: inline-block;
+    }
+    .nav {
+      display: inline-block;
+    }
+    .stepper-links.card-header {
+      width: 10%;
+      text-align: right;
+      padding-right: 10px;
+      margin-left: 2px;
+      margin-right: 0;
+    }
+    .nav-tabs .nav-link {
+      border-bottom: $nav-tabs-border-width solid $nav-tabs-border-color;
+      @include border-bottom-radius($nav-tabs-border-radius);
+      border-right: 0px;
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+      width: 100%;
+    }
+  }
+}
+
+.tabs-left {
+  margin-top: 3rem;
+}
