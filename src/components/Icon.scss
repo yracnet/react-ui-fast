@@ -5,20 +5,6 @@ $size-3x: 4.5em;
 $size-4x: 5.5em;
 $size-5x: 6.5em;
 
-$left-0x: 6px;
-$left-1x: 9px;
-$left-2x: 12px;
-$left-3x: 13px;
-$left-4x: 15px;
-$left-5x: 15px;
-
-$top-0x: 5px;
-$top-1x: 10px;
-$top-2x: 10px;
-$top-3x: 9px;
-$top-4x: 9px;
-$top-5x: 9px;
-
 $border: 2px solid
   rgba(
     $color: #000000,
@@ -96,57 +82,4 @@ $border: 2px solid
       width: $size-5x;
     }
   }
-  /*
-  &.shape-lg,
-  &.shape-2x,
-  &.shape-3x,
-  &.shape-4x,
-  &.shape-5x {
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  &.shape-lg {
-    height: 2.2em;
-    width: 2.2em;
-    .fa {
-      margin-top: 8px;
-      margin-left: 3px;
-    }
-  }
-  &.shape-2x {
-    height: 3.1em;
-    width: 3.1em;
-    .fa {
-      margin-top: 7px;
-      margin-left: 6px;
-    }
-  }
-  &.shape-3x {
-    height: 4.1em;
-    width: 4.1em;
-    border-color: green;
-    .fa {
-      margin-top: 7px;
-      margin-left: 6px;
-    }
-  }
-  &.shape-4x {
-    height: 5.5em;
-    width: 5.5em;
-    border-color: blue;
-    .fa {
-      margin-top: 9px;
-      margin-left: 12px;
-    }
-  }
-  &.shape-5x {
-    border-color: red;
-    height: 7em;
-    width: 7em;
-    .fa {
-      margin-top: 12px;
-      margin-left: 17px;
-    }
-  }
-  /**/
 }

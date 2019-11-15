@@ -25,7 +25,7 @@
   > .Text {
     font-size: 90%;
     //color: rgba(0, 0, 0, 0.6);
-    margin-top: 8px;
+    margin-top: 4px;
     font-weight: bold;
   }
   > .Reference {
@@ -52,7 +52,9 @@
       border-color: rgba(0, 0, 0, 0.125);
       padding-left: 2px;
       padding-top: 0;
-      padding-bottom: 6px;
+      padding-bottom: 0;
+      margin-top: 0;
+      margin-bottom: 0;
     }
   }
 }
