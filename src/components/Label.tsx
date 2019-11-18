@@ -3,6 +3,8 @@ import "./Label.scss";
 
 export interface LabelTextProps {
     value?: string,
+    title?: string,
+    help?: string,
     mode?: "bottom" | "top" | "start",
     align?: "left" | "right" | "center",
     hide?: boolean,
@@ -13,10 +15,23 @@ export const LabelText: React.FC<LabelTextProps> = (props) => {
     if (props.hide === true) {
         return null;
     }
-    let { value, align, mode, children } = props;
+    let { value, align, mode, children, title, help } = props;
     mode = mode || "bottom";
     align = align || "left";
-    let valueHtml = value ? <label className={"Text label-text-" + align}>{value}</label> : null;
+    let helpHtml = help ? (
+        <span className="Help">
+            <i className="fa fa-info-circle" aria-hidden="true"></i>
+            <div className="popover fade show bs-popover-top">
+                <div className="arrow"></div>
+                <div className="popover-body">
+                    {help}
+                </div>
+            </div>
+        </span>
+    ) : null;
+
+
+    let valueHtml = value ? <label className={"Text label-text-" + align} title={title}>{value} {helpHtml}</label> : null;
     let childrenHtml = children ? <span className="Reference">{children}</span> : null;
 
     return mode === "bottom" ?
