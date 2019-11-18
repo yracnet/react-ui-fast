@@ -97,21 +97,23 @@
   .Help{
     cursor: pointer;
     .popover{
-      display: none;
+      opacity: 0;
     }
-  }
-  .Help:hover{
-    position: relative;
-    .popover{
-      display: block;
-      position: absolute;
-      top: -71px;
-      min-height: 65px;
-      max-height: 65px;
-      width: auto;
-      min-width: 200px;
-      max-width: 300px;
-      left: -8px;
+    &:hover{
+      position: relative;
+      .popover{
+        opacity: 1;
+        transition: opacity 2s all;
+        display: block;
+        position: absolute;
+        top: -71px;
+        min-height: 65px;
+        max-height: 65px;
+        width: auto;
+        min-width: 200px;
+        max-width: 300px;
+        left: -8px;
+      }
     }
   }
 }

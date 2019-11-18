@@ -20,8 +20,8 @@ export const LabelText: React.FC<LabelTextProps> = (props) => {
     align = align || "left";
     let helpHtml = help ? (
         <span className="Help">
-            <i className="fa fa-info-circle" aria-hidden="true"></i>
-            <div className="popover fade show bs-popover-top">
+            <i className="fa fa-info-circle"></i>
+            <div className="popover fade bs-popover-top">
                 <div className="arrow"></div>
                 <div className="popover-body">
                     {help}
