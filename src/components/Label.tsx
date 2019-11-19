@@ -31,23 +31,26 @@ export const LabelText: React.FC<LabelTextProps> = (props) => {
     ) : null;
 
 
-    let valueHtml = value ? <label className={"Text label-text-" + align} title={title}>{value} {helpHtml}</label> : null;
+    let valueHtml = value ? <label className={"Text label-text-" + align} title={title}>{value}</label> : null;
     let childrenHtml = children ? <span className="Reference">{children}</span> : null;
 
     return mode === "bottom" ?
         <span className="Label-Bottom">
             {childrenHtml}
             {valueHtml}
+            {helpHtml}
         </span>
         :
         mode === "top" ?
             <span className="Label-Top">
                 {valueHtml}
+                {helpHtml}
                 {childrenHtml}
             </span>
             :
             <span className="Label-Start">
                 {valueHtml}
+                {helpHtml}
                 {childrenHtml}
             </span>;
 }

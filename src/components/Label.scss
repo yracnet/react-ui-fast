@@ -93,11 +93,13 @@
 *::placeholder {
   color: rgba(0, 0, 0, 0.125);
 }
-.Text{
   .Help{
+    margin-left: 5px;
     cursor: pointer;
     .popover{
       opacity: 0;
+      display: none;
+      position: absolute;
     }
     &:hover{
       position: relative;
@@ -116,4 +118,3 @@
       }
     }
   }
-}
