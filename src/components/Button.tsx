@@ -23,6 +23,7 @@ export interface ButtonProps {
   refuse?: string | Array<string> | refuseType,
   icon?: string,
   variant?: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark',
+  size?: 'none' | 'sm' | 'lg',
   text?: string,
   children?: string
 }
@@ -97,6 +98,7 @@ export const Button: React.SFC<ButtonProps> = (props) => {
     ReactDOM.render(refuseHtml, spanBefore, showBlock);
   };
   let disabled = props.disabled || false;
+  let size = props.size || 'sm';
   let variant = props.variant || 'default';
   let text = props.children ? props.children : props.text;
   let textHtml = text ? <span>{text}</span> : null;
@@ -123,7 +125,7 @@ export const Button: React.SFC<ButtonProps> = (props) => {
         {textHtml}
       </a>
       :
-      <button className={'Button-Normal btn btn-sm btn-' + variant} onClick={onClickButton} disabled={disabled}>
+      <button className={'Button-Normal btn btn-' + size + ' btn-' + variant} onClick={onClickButton} disabled={disabled}>
         <Icon name={props.icon} size="lg" />
         {textHtml}
       </button>
