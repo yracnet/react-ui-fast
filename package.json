@@ -1,16 +1,21 @@
 {
   "name": "ui-fast2",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "UI Fast2 React",
   "main": "dist/module.js",
   "types": "dist/module.d.ts",
   "private": false,
   "author": "Willyams Yujra <yracnet@gmail.com>",
   "license": "MIT",
-  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/yracnet/ui-fast.git"
+  },
+  "dependencies": {
+    "moment": "^2.24.0",
+    "bootstrap": "^4.3.1",
+    "font-awesome": "^4.7.0",
+    "react-select": "^3.0.8"
   },
   "devDependencies": {
     "@evneandrey/react-datepicker": "^1.0.0",
@@ -20,18 +25,14 @@
     "@types/react-dom": "16.9.3",
     "@types/react-router-dom": "^5.1.0",
     "@types/react-select": "^3.0.8",
-    "bootstrap": "^4.3.1",
     "del": "^5.1.0",
-    "font-awesome": "^4.7.0",
     "gulp": "^4.0.2",
     "gulp-typescript": "^5.0.1",
     "jquery": "^3.4.1",
-    "moment": "^2.24.0",
     "node-sass": "^4.12.0",
     "popper.js": "^1.16.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "react-select": "^3.0.8",
     "react-navigation": "^4.0.10",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",

@@ -1,0 +1,7 @@
+# .npmignore
+node_modules
+tests
+src
+public
+gulpfiles.js
+README.md

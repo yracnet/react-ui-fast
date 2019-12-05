@@ -60,10 +60,10 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     if (props.hide === true) {
         return null;
     }
-    let inputChangeDate = function (value: dayjs.Dayjs, rawValue: string) {
-        let date = value && value.toDate ? value.toDate() : undefined;
-        onChangeInvoke(rawValue, date);
-    }
+    //let inputChangeDate = function (value: dayjs.Dayjs, rawValue: string) {
+    //    let date = value && value.toDate ? value.toDate() : undefined;
+    //    onChangeInvoke(rawValue, date);
+    //}
     let inputChangeOption = function (option: ValueType<any>, action: ActionMeta) {
         let rawValue = option ? option.value : undefined;
         onChangeInvoke(rawValue, option);
