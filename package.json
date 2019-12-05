@@ -1,11 +1,17 @@
 {
-  "name": "ui-fast",
+  "name": "ui-fast2",
   "version": "0.1.0",
-  "description": "",
+  "description": "UI Fast2 React",
   "main": "dist/module.js",
   "types": "dist/module.d.ts",
-  "private": true,
+  "private": false,
+  "author": "Willyams Yujra <yracnet@gmail.com>",
+  "license": "MIT",
   "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yracnet/ui-fast.git"
+  },
   "devDependencies": {
     "@evneandrey/react-datepicker": "^1.0.0",
     "@types/jest": "24.0.20",

@@ -4,8 +4,8 @@ import './Input.scss';
 
 //-------------DATE-----------------
 import * as dayjs from 'dayjs';
-import { DatePicker } from '@evneandrey/react-datepicker';
-import '@evneandrey/react-datepicker/assets/styles/calendar.scss';
+//import { DatePicker } from '@evneandrey/react-datepicker';
+//import '@evneandrey/react-datepicker/assets/styles/calendar.scss';
 
 //-------------SELECT---------------
 import Select, { GroupedOptionsType, OptionsType, ValueType, ActionMeta, OptionTypeBase } from 'react-select';
@@ -121,23 +121,23 @@ export const InputText: React.FC<InputTextProps> = (props) => {
                 placeholder={props.placeholder}
                 options={props.options} />
             :
-            type === "date" ?
-                <div className={className}>
-                    <DatePicker value={valueString}
-                        onChange={inputChangeDate}
-                        dateFormat={props.dateFormat || 'DD/MM/YYYY'}
-                        placeholder={props.placeholder}
-                    />
-                </div>
-                :
-                <input
-                    name={props.name}
-                    value={valueString}
-                    onChange={inputChange}
-                    type={type}
-                    className={className}
-                    title={props.title || props.placeholder}
-                    placeholder={props.placeholder} />;
+            //type === "date" ?
+            //    <div className={className}>
+            //        <DatePicker value={valueString}
+            //            onChange={inputChangeDate}
+            //            dateFormat={props.dateFormat || 'DD/MM/YYYY'}
+            //            placeholder={props.placeholder}
+            //        />
+            //    </div>
+            //    :
+            <input
+                name={props.name}
+                value={valueString}
+                onChange={inputChange}
+                type={type}
+                className={className}
+                title={props.title || props.placeholder}
+                placeholder={props.placeholder} />;
     return (
         <div className={'input-group Input-' + type}>
             {addonPrefixHtml}
