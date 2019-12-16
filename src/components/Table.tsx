@@ -20,6 +20,7 @@ export interface TableProps {
     onConfig?: (e: TableConfig) => void,
     variant?: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark',
     hide?: boolean,
+    hidePager?: boolean,
     children: any | Array<any>
 }
 
@@ -64,7 +65,7 @@ export class Table extends React.PureComponent<TableProps, TableConfig> {
     }
 
     render(): React.ReactNode {
-        let { hide, values, pk, variant, select, config, onConfig } = this.props;
+        let { hide, values, pk, variant, select, config, onConfig, hidePager } = this.props;
         if (hide === true) {
             return null;
         }
@@ -132,7 +133,7 @@ export class Table extends React.PureComponent<TableProps, TableConfig> {
                     <tfoot>
                         <tr>
                             <td colSpan={20} className="Pager">
-                                <Pager value={pagerValue} onPager={this.onPagerData} size="sm" />
+                                <Pager value={pagerValue} onPager={this.onPagerData} size="sm" hide={hidePager} />
                             </td>
                         </tr>
                     </tfoot>

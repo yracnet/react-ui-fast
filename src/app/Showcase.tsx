@@ -37,7 +37,7 @@ export default class Showcase extends React.Component {
     return (
       <div>
         <BrowserRouter>
-          <Route path="/a">
+          <Route path="/">
             <Stepper orientation="vertical" className="x" steps={steps}>
               <Switch>
                 <Route exact path='/a/1'>

@@ -56,13 +56,6 @@ export const Pager: React.FC<PagerProps> = (props) => {
     if (indexIni + count > indexMax) {
         indexIni = indexMax - count + 1;
     }
-    let pagetSizeHtml = (
-        <li className="page-item">
-            <select className="custom-select" value={value.size} onChange={changeStep}>
-                {steps.map(it => <option key={it}>{it}</option>)}
-            </select>
-        </li>
-    );
 
     let pagerLinkHtml = [];
     while (count--) {
@@ -142,9 +135,16 @@ export const Pager: React.FC<PagerProps> = (props) => {
             </li>
         );
     }
+    pagerLinkHtml.unshift(
+        <li className="page-item">
+            <select className="custom-select" value={value.size} onChange={changeStep}>
+                {steps.map(it => <option key={it}>{it}</option>)}
+            </select>
+        </li>
+    );
+    pagerLinkHtml = pagerLinkHtml.map((it, i) => <li key={'page-' + i} {...it.props} />)
     return (
         <ul className={'pagination pagination-' + props.size}>
-            {pagetSizeHtml}
             {pagerLinkHtml}
         </ul>
     );
