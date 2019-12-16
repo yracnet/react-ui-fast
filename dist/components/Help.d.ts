@@ -1,0 +1,24 @@
+declare function parseCols(data: string | Array<number>): Array<number>;
+declare function insertArray<T>(source: Array<T>, index: number, value: T): Array<T>;
+declare function parseArray(value: any | Array<any> | undefined): Array<any>;
+declare function generateId(prefix?: string): string;
+declare type ModeType = 'auto' | 'top' | 'left' | 'right' | 'bottom';
+declare function popoverAling(mode: ModeType, reference: HTMLElement, popover: HTMLElement): ModeType;
+declare function diffTimeLiteral(from: Date, to?: Date): string;
+declare function isFunction(fn?: any): boolean;
+declare function isEmpty(it: undefined | Array<any> | object | string): boolean;
+declare function appendAttr(attr: string, value?: any, target?: object, _default?: object): object;
+declare function base64toBlob(b64Data: string, contentType?: string, sliceSize?: number): Blob;
+declare const _default_1: {
+    base64toBlob: typeof base64toBlob;
+    parseCols: typeof parseCols;
+    parseArray: typeof parseArray;
+    insertArray: typeof insertArray;
+    generateId: typeof generateId;
+    appendAttr: typeof appendAttr;
+    popoverAling: typeof popoverAling;
+    diffTimeLiteral: typeof diffTimeLiteral;
+    isFunction: typeof isFunction;
+    isEmpty: typeof isEmpty;
+};
+export default _default_1;

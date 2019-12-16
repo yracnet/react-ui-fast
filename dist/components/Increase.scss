@@ -1,0 +1,38 @@
+.Increase {
+  .Increase-Action {
+    position: absolute;
+    top: 0;
+    left: auto;
+    right: 0;
+    bottom: auto;
+    z-index: 1050;
+  }
+  .Animate {
+    opacity: 0.5;
+    transform: scale(0.8);
+    transition: all 0.4s ease-in-out;
+    transform-origin: top right;
+  }
+  .Animate:hover {
+    opacity: 1;
+    transform: scale(1);
+    margin-top: 0px;
+    margin-right: 0px;
+  }
+  .card-title + .Increase-Action {
+    margin-top: 10px !important;
+    margin-right: 10px !important;
+  }
+  .Increase-Content .card {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0;
+    > div {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  }
+  .card-body:empty {
+    display: none;
+  }
+}
