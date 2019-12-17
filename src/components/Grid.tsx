@@ -4,6 +4,7 @@ import Help from "./Help";
 import { LabelText } from "./Label";
 
 export interface GridProps {
+    hide?: boolean,
     className?: string,
     cols: Array<number>,
     colsSm?: Array<number>,
@@ -20,6 +21,9 @@ let appendCol = function (cols: undefined | Array<number>, index: number, type: 
 }
 
 export const Grid: React.FC<GridProps> = (props) => {
+    if (props.hide === true) {
+        return null;
+    }
     let mode = props.mode || "top";
     let { cols, colsSm, colsMd, colsLg, colsXl } = props;
     let children: ReactElement[] = Help.parseArray(props.children);
