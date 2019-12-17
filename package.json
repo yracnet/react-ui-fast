@@ -1,6 +1,6 @@
 {
   "name": "ui-fast2",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "UI Fast2 React",
   "main": "dist/module.js",
   "types": "dist/module.d.ts",
