@@ -6,6 +6,7 @@ export interface LabelTextProps {
     help?: string;
     mode?: "bottom" | "top" | "start";
     align?: "left" | "right" | "center";
+    variant?: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
     hide?: boolean;
     children?: any | Array<any>;
 }

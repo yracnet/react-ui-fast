@@ -9,11 +9,13 @@ exports.OutputText = (props) => {
     if (props.hide === true) {
         return null;
     }
-    let { value, onFormat, align } = props;
+    let { value, onFormat, align, variant } = props;
+    align = align || "left";
+    variant = variant || "default";
     let valueText = value || "";
     if (onFormat) {
         valueText = onFormat(value);
     }
-    let className = "Output label-text-" + (align || "left");
+    let className = "Output label-text-" + align + ' text-' + variant;
     return react_1.default.createElement("label", { className: className }, valueText);
 };

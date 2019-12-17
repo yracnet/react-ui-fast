@@ -7,6 +7,7 @@ export interface LabelTextProps {
     help?: string,
     mode?: "bottom" | "top" | "start",
     align?: "left" | "right" | "center",
+    variant?: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark',
     hide?: boolean,
     children?: any | Array<any>
 }
@@ -15,9 +16,10 @@ export const LabelText: React.FC<LabelTextProps> = (props) => {
     if (props.hide === true) {
         return null;
     }
-    let { value, align, mode, children, title, help } = props;
+    let { value, align, variant, mode, children, title, help } = props;
     mode = mode || "bottom";
     align = align || "left";
+    variant = variant || "default";
     let helpHtml = help ? (
         <span className="Help">
             <i className="fa fa-info-circle"></i>
@@ -31,7 +33,7 @@ export const LabelText: React.FC<LabelTextProps> = (props) => {
     ) : null;
 
 
-    let valueHtml = value ? <label className={"Text label-text-" + align} title={title}>{value}</label> : null;
+    let valueHtml = value ? <label className={"Text label-text-" + align + ' text-' + variant} title={title}>{value}</label> : null;
     let childrenHtml = children ? <span className="Reference">{children}</span> : null;
 
     return mode === "bottom" ?

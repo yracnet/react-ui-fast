@@ -33,15 +33,15 @@ export class Table extends React.PureComponent<TableProps, TableConfig> {
     }
 
     onSortColumn(column: string) {
-        let { onConfig: onSort } = this.props;
-        if (onSort) {
+        let { onConfig } = this.props;
+        if (onConfig) {
             let sort = this.state.sort;
             let configValue: TableConfig = {
                 column,
                 sort: sort === 'none' ? 'asc' : sort === 'asc' ? 'desc' : 'none'
             };
             this.setState(configValue);
-            onSort(configValue);
+            onConfig(configValue);
         }
     }
 
@@ -84,7 +84,7 @@ export class Table extends React.PureComponent<TableProps, TableConfig> {
                     className={className}>
                     <span className="Sort"
                         onClick={o => this.onSortColumn(it.attr)}>
-                        <Icon name={sort} />
+                        <Icon name={sort} hide={sort === 'none'} />
                         {title}
                     </span>
                 </th>

@@ -16,15 +16,15 @@ class Table extends react_1.default.PureComponent {
         this.onPagerData = this.onPagerData.bind(this);
     }
     onSortColumn(column) {
-        let { onConfig: onSort } = this.props;
-        if (onSort) {
+        let { onConfig } = this.props;
+        if (onConfig) {
             let sort = this.state.sort;
             let configValue = {
                 column,
                 sort: sort === 'none' ? 'asc' : sort === 'asc' ? 'desc' : 'none'
             };
             this.setState(configValue);
-            onSort(configValue);
+            onConfig(configValue);
         }
     }
     onPagerData(value) {
@@ -59,7 +59,7 @@ class Table extends react_1.default.PureComponent {
             let sort = !onConfig ? 'none' : attr !== state.column || state.sort === 'none' ? 'sort' : state.sort === 'desc' ? 'sort-down' : 'sort-up';
             return (react_1.default.createElement("th", { key: i, style: { width: width + '%' }, className: className },
                 react_1.default.createElement("span", { className: "Sort", onClick: o => this.onSortColumn(it.attr) },
-                    react_1.default.createElement(Icon_1.Icon, { name: sort }),
+                    react_1.default.createElement(Icon_1.Icon, { name: sort, hide: sort === 'none' }),
                     title)));
         });
         let selectPks = Help_1.default.parseArray(select).map(it => it[pk]);
