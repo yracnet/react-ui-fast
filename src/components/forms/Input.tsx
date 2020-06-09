@@ -3,7 +3,7 @@ import { Icon } from '../commons/Icon';
 import './Input.scss';
 
 //-------------DATE-----------------
-import * as dayjs from 'dayjs';
+//import * as dayjs from 'dayjs';
 //import { DatePicker } from '@evneandrey/react-datepicker';
 //import '@evneandrey/react-datepicker/assets/styles/calendar.scss';
 

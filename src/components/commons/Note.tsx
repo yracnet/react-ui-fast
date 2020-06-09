@@ -1,6 +1,6 @@
 import React from 'react';
 import './Note.scss';
-import { Icon } from '../commons/Icon';
+import { Icon } from './Icon';
 import Help from '../Help';
 
 export interface NoteMessage {

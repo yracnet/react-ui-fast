@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Showcase from './app/Showcase';
+import Main from './showcase/Main';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<Showcase />, document.getElementById('root'));
+ReactDOM.render(<Main />, document.getElementById('root'));
 
 serviceWorker.unregister();

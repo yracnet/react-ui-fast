@@ -9,7 +9,7 @@ import { Icon, IconProps } from "./components/commons/Icon";
 import { Increase, IncreaseProps } from "./components/forms/Increase";
 import { InputText, InputTextProps, InputTextValue, InputTextFeedback, FnInputTextValidate, FnInputTextChange, ObjectInputTextValidate, ObjectInputTextFeedback, TypeInputTextValidate, InputTextFactory } from "./components/forms/Input";
 import { LabelText, LabelTextProps } from "./components/forms/Label";
-import { Note, NoteProps, NoteMessage } from "./components/layouts/Note";
+import { Note, NoteProps, NoteMessage } from "./components/commons/Note";
 import { OutputText, OutputTextProps } from "./components/forms/Output";
 import { Pager, PagerProps, PagerValue } from "./components/customs/Pager";
 import { Panel, PanelProps } from "./components/layouts/Panel";

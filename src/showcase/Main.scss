@@ -1,0 +1,21 @@
+// create bootstrap theme
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../node_modules/font-awesome/css/font-awesome.css";
+.Main{
+  margin: 0 200px;
+  .Links{
+    display: block;
+    a{
+      margin: 5px;
+      padding: 10px;
+      display: inline;
+      background-color: blue;
+      color: white;
+
+    }
+  }
+  .Content{
+    margin: 10px 0;
+
+  }
+}

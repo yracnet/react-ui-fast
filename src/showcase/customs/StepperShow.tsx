@@ -1,13 +1,12 @@
 import React from 'react';
-import './Showcase.scss';
-import { Stepper, StepItem } from '../components/customs/Stepper';
+//import { Stepper, StepItem } from '../../module';
+import { Stepper, StepItem } from '../../components/customs/Stepper';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-export default class Showcase extends React.Component {
+export default class StepperShow extends React.Component {
 
 
   onChange(event: any, raw: any) {
-    // Day.js object
     console.log(raw, '-----------', event);
   }
   render() {
