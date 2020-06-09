@@ -1,7 +1,7 @@
 import React from 'react';
 import './Note.scss';
-import { Icon } from './Icon';
-import Help from './Help';
+import { Icon } from '../commons/Icon';
+import Help from '../Help';
 
 export interface NoteMessage {
     type: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' | 'none',

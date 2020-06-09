@@ -140,6 +140,27 @@ function base64toBlob(b64Data: string, contentType?: string, sliceSize?: number)
     var blob = new Blob(byteArrays, { type: contentType });
     return blob;
 }
+function showBlock (name: string = "block-message") {
+    let blockMessage = document.getElementById(name);
+    if (!blockMessage) {
+        blockMessage = document.createElement("span");
+        blockMessage.id = "block-message";
+        document.body.appendChild(blockMessage);
+        blockMessage.className = "modal fade";
+    }
+    blockMessage.style.display = "block";
+    blockMessage.style.opacity = "0.5";
+    blockMessage.style.backgroundColor = "gray";
+    blockMessage.className = "modal fade in show";
+}
+
+function hideBlock (name: string = "block-message") {
+    let blockMessage = document.getElementById(name);
+    if (blockMessage) {
+        blockMessage.className = "modal fade in hide";
+        blockMessage.style.display = "none";
+    }
+}
 
 export default {
     base64toBlob,
@@ -151,5 +172,7 @@ export default {
     popoverAling,
     diffTimeLiteral,
     isFunction,
-    isEmpty
+    isEmpty,
+    showBlock,
+    hideBlock
 }

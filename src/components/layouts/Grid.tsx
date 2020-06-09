@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import "./Grid.scss";
-import Help from "./Help";
-import { LabelText } from "./Label";
+import Help from "../Help";
+import { LabelText } from "../forms/Label";
 
 export interface GridProps {
     hide?: boolean,

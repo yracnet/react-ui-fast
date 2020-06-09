@@ -1,19 +1,19 @@
 import Help from "./components/Help";
-import { Action, ActionProps } from "./components/Action";
-import { Alert, AlertProps } from "./components/Alert";
-import { Button, ButtonProps } from "./components/Button";
-import { Table, TableProps, Column, ColumnProps, TableConfig } from "./components/Table";
-import { FilterText, FilterTextProps, FilterTextState, FnFilterTextChange, FilterTextFactory } from "./components/Filter";
-import { Grid, GridProps } from "./components/Grid";
-import { Icon, IconProps } from "./components/Icon";
-import { Increase, IncreaseProps } from "./components/Increase";
-import { InputText, InputTextProps, InputTextValue, InputTextFeedback, FnInputTextValidate, FnInputTextChange, ObjectInputTextValidate, ObjectInputTextFeedback, TypeInputTextValidate, InputTextFactory } from "./components/Input";
-import { LabelText, LabelTextProps } from "./components/Label";
-import { Note, NoteProps, NoteMessage } from "./components/Note";
-import { OutputText, OutputTextProps } from "./components/Output";
-import { Pager, PagerProps, PagerValue } from "./components/Pager";
-import { Panel, PanelProps } from "./components/Panel";
-import { Popover, PopoverProps } from "./components/Popover";
+import { Action, ActionProps } from "./components/layouts/Action";
+import { Alert, AlertProps } from "./components/commons/Alert";
+import { Button, ButtonProps } from "./components/forms/Button";
+import { Table, TableProps, Column, ColumnProps, TableConfig } from "./components/forms/Table";
+import { FilterText, FilterTextProps, FilterTextState, FnFilterTextChange, FilterTextFactory } from "./components/customs/Filter";
+import { Grid, GridProps } from "./components/layouts/Grid";
+import { Icon, IconProps } from "./components/commons/Icon";
+import { Increase, IncreaseProps } from "./components/forms/Increase";
+import { InputText, InputTextProps, InputTextValue, InputTextFeedback, FnInputTextValidate, FnInputTextChange, ObjectInputTextValidate, ObjectInputTextFeedback, TypeInputTextValidate, InputTextFactory } from "./components/forms/Input";
+import { LabelText, LabelTextProps } from "./components/forms/Label";
+import { Note, NoteProps, NoteMessage } from "./components/layouts/Note";
+import { OutputText, OutputTextProps } from "./components/forms/Output";
+import { Pager, PagerProps, PagerValue } from "./components/customs/Pager";
+import { Panel, PanelProps } from "./components/layouts/Panel";
+import { Popover, PopoverProps } from "./components/commons/Popover";
 
 export default Help;
 export {

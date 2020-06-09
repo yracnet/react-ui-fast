@@ -1,8 +1,8 @@
 import React from 'react';
-import help from './Help';
+import help from '../Help';
 import './Table.scss';
-import { Icon } from './Icon';
-import { Pager, PagerValue } from './Pager';
+import { Icon } from '../commons/Icon';
+import { Pager, PagerValue } from '../customs/Pager';
 
 export interface TableConfig {
     column?: string,

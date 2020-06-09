@@ -1,5 +1,5 @@
 import React from 'react';
-import help from './Help';
+import help from '../Help';
 
 export interface PopoverProps {
     variant?: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark',

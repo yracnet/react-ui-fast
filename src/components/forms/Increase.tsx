@@ -1,7 +1,7 @@
 import React from 'react';
-import help from './Help';
+import help from '../Help';
 import { Button } from './Button';
-import { Icon } from './Icon';
+import { Icon } from '../commons/Icon';
 import './Increase.scss';
 
 export interface IncreaseProps {

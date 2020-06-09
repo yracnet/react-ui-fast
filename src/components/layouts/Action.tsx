@@ -1,6 +1,6 @@
 import React from 'react';
-import help from './Help';
-import { Button } from './Button';
+import help from '../Help';
+import { Button } from '../forms/Button';
 
 export interface ActionProps {
   className?: string,

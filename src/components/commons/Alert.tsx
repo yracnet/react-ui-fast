@@ -1,5 +1,5 @@
 import React from 'react';
-import help from './Help';
+import help from '../Help';
 import './Alert.scss';
 import { Icon } from './Icon';
 

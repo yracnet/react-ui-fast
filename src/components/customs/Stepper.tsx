@@ -1,6 +1,6 @@
 import React from 'react';
 import './Stepper.scss';
-import { Icon, IconVariant, IconShape, IconSize } from '../components/Icon';
+import { Icon, IconVariant, IconShape, IconSize } from '../commons/Icon';
 import { NavLink } from 'react-router-dom';
 import { matchPath } from 'react-router';
 import { withRouter, RouteComponentProps } from 'react-router'

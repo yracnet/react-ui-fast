@@ -2,10 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './Button.scss';
 import * as H from 'history';
-import { Popover } from './Popover';
-import { showBlock, hideBlock } from './Block';
-import { Icon } from './Icon';
-import Help from './Help';
+import { Popover } from '../commons/Popover';
+import { Icon } from '../commons/Icon';
+import Help from '../Help';
 //type messageType = () =>(string|)
 type confirmType = () => string | undefined;
 type refuseType = () => string | Array<string> | undefined;
@@ -49,7 +48,7 @@ export const Button: React.SFC<ButtonProps> = (props) => {
   let onClickClose = function (element: any) {
     ReactDOM.unmountComponentAtNode(element);
     document.body.removeChild(element);
-    hideBlock();
+    Help.hideBlock();
   };
   let onClickCloseInvoke = function (element: any) {
     onClickClose(element);
@@ -76,7 +75,7 @@ export const Button: React.SFC<ButtonProps> = (props) => {
     </Popover>;
     spanBefore.className = 'Button-Popover';
     document.body.appendChild(spanBefore);
-    ReactDOM.render(confirmHtml, spanBefore, showBlock);
+    ReactDOM.render(confirmHtml, spanBefore, Help.showBlock);
   };
   let onClickRefuse = function (event: any, refuseMessage: Array<string>) {
     let element = event.currentTarget;
@@ -95,7 +94,7 @@ export const Button: React.SFC<ButtonProps> = (props) => {
     </Popover>;
     spanBefore.className = 'Button-Popover';
     document.body.appendChild(spanBefore);
-    ReactDOM.render(refuseHtml, spanBefore, showBlock);
+    ReactDOM.render(refuseHtml, spanBefore, Help.showBlock);
   };
   let disabled = props.disabled || false;
   let size = props.size || 'sm';

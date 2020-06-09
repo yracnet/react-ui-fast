@@ -1,5 +1,5 @@
 import React from 'react';
-import Help from './Help';
+import Help from '../Help';
 import "./Filter.scss";
 const OPTION = {
     number: [

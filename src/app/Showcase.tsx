@@ -1,6 +1,6 @@
 import React from 'react';
 import './Showcase.scss';
-import { Stepper, StepItem } from '../components/Stepper';
+import { Stepper, StepItem } from '../components/customs/Stepper';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 export default class Showcase extends React.Component {

@@ -1,7 +1,7 @@
 import React from 'react';
-import help from './Help';
+import help from '../Help';
 import './Panel.scss';
-import { Icon } from './Icon';
+import { Icon } from '../commons/Icon';
 
 type TypeCol = undefined | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 export interface PanelProps {
