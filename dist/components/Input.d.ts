@@ -1,5 +1,6 @@
 import React from 'react';
 import './Input.scss';
+import "react-datepicker/dist/react-datepicker.css";
 import { GroupedOptionsType, OptionsType, OptionTypeBase } from 'react-select';
 export interface InputTextFeedback {
     state: 'valid' | 'invalid' | 'ignore';
@@ -41,6 +42,7 @@ export interface InputTextProps {
     addonPrefix?: string;
     addonPosfix?: string;
     dateFormat?: string;
+    locale?: string;
     options?: GroupedOptionsType<InputTextOption> | OptionsType<InputTextOption>;
     hide?: boolean;
     disabled?: boolean;

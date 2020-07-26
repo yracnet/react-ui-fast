@@ -3,9 +3,10 @@ import { Icon } from './Icon';
 import './Input.scss';
 
 //-------------DATE-----------------
-import * as dayjs from 'dayjs';
-//import { DatePicker } from '@evneandrey/react-datepicker';
-//import '@evneandrey/react-datepicker/assets/styles/calendar.scss';
+// @ts-ignore
+import DatePicker from "react-datepicker";
+import moment from 'moment';
+import "react-datepicker/dist/react-datepicker.css";
 
 //-------------SELECT---------------
 import Select, { GroupedOptionsType, OptionsType, ValueType, ActionMeta, OptionTypeBase } from 'react-select';
@@ -51,6 +52,7 @@ export interface InputTextProps {
     addonPrefix?: string,
     addonPosfix?: string,
     dateFormat?: string,
+    locale?: string,
     options?: GroupedOptionsType<InputTextOption> | OptionsType<InputTextOption>,
     hide?: boolean,
     disabled?: boolean
@@ -60,10 +62,11 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     if (props.hide === true) {
         return null;
     }
-    //let inputChangeDate = function (value: dayjs.Dayjs, rawValue: string) {
-    //    let date = value && value.toDate ? value.toDate() : undefined;
-    //    onChangeInvoke(rawValue, date);
-    //}
+    let dateFormat = props.dateFormat || 'DD/MM/YYYY';
+    let inputChangeDate = function (value: Date, source: any) {
+        let rawValue = value? moment(value).format(dateFormat) : undefined;
+        onChangeInvoke(rawValue, value);
+    }
     let inputChangeOption = function (option: ValueType<any>, action: ActionMeta) {
         let rawValue = option ? option.value : undefined;
         onChangeInvoke(rawValue, option);
@@ -87,6 +90,7 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     let addonPrefixHtml = internal.searchAddonHtml(props.children) || internal.createAddonHtml(props.addonPrefix);
     let addonPosfixHtml = internal.createAddonHtml(props.addonPosfix);
     const type = props.type || 'string';
+    const locale = props.locale || 'es';
     if (type === "date") {
         addonPosfixHtml = <div className="input-group-prepend">
             <Icon name="calendar" size="lg" />
@@ -121,23 +125,30 @@ export const InputText: React.FC<InputTextProps> = (props) => {
                 placeholder={props.placeholder}
                 options={props.options} />
             :
-            //type === "date" ?
-            //    <div className={className}>
-            //        <DatePicker value={valueString}
-            //            onChange={inputChangeDate}
-            //            dateFormat={props.dateFormat || 'DD/MM/YYYY'}
-            //            placeholder={props.placeholder}
-            //        />
-            //    </div>
-            //    :
-            <input
-                name={props.name}
-                value={valueString}
-                onChange={inputChange}
-                type={type}
-                className={className}
-                title={props.title || props.placeholder}
-                placeholder={props.placeholder} />;
+            type === "date" ?
+                <div className={className}>
+                    <DatePicker 
+                        value={valueString}
+                        className="fix-control"
+                        onChange={inputChangeDate}
+                        dateFormat={dateFormat}
+                        title={props.title || props.placeholder}
+                        placeholder={props.placeholder}
+                        locale={locale}
+                        showMonthDropdown
+                        showYearDropdown
+                        dropdownMode="select"
+                    />
+                </div>
+                :
+                <input
+                    name={props.name}
+                    value={valueString}
+                    onChange={inputChange}
+                    type={type}
+                    className={className}
+                    title={props.title || props.placeholder}
+                    placeholder={props.placeholder} />;
     return (
         <div className={'input-group Input-' + type}>
             {addonPrefixHtml}

@@ -11,6 +11,9 @@ let appendCol = function (cols, index, type, className) {
     return cols ? className + " col-" + type + "-" + cols[index % cols.length] : className;
 };
 exports.Grid = (props) => {
+    if (props.hide === true) {
+        return null;
+    }
     let mode = props.mode || "top";
     let { cols, colsSm, colsMd, colsLg, colsXl } = props;
     let children = Help_1.default.parseArray(props.children);

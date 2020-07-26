@@ -6,11 +6,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
 const Icon_1 = require("./Icon");
 require("./Input.scss");
+const react_datepicker_1 = __importDefault(require("react-datepicker"));
+const moment_1 = __importDefault(require("moment"));
+require("react-datepicker/dist/react-datepicker.css");
 const react_select_1 = __importDefault(require("react-select"));
 exports.InputText = (props) => {
     if (props.hide === true) {
         return null;
     }
+    let dateFormat = props.dateFormat || 'DD/MM/YYYY';
+    let inputChangeDate = function (value, source) {
+        let rawValue = value ? moment_1.default(value).format(dateFormat) : undefined;
+        onChangeInvoke(rawValue, value);
+    };
     let inputChangeOption = function (option, action) {
         let rawValue = option ? option.value : undefined;
         onChangeInvoke(rawValue, option);
@@ -34,6 +42,7 @@ exports.InputText = (props) => {
     let addonPrefixHtml = internal.searchAddonHtml(props.children) || internal.createAddonHtml(props.addonPrefix);
     let addonPosfixHtml = internal.createAddonHtml(props.addonPosfix);
     const type = props.type || 'string';
+    const locale = props.locale || 'es';
     if (type === "date") {
         addonPosfixHtml = react_1.default.createElement("div", { className: "input-group-prepend" },
             react_1.default.createElement(Icon_1.Icon, { name: "calendar", size: "lg" }));
@@ -55,7 +64,11 @@ exports.InputText = (props) => {
             type === "option" ?
                 react_1.default.createElement(react_select_1.default, { name: props.name, classNamePrefix: "select", className: className, value: valueString, onChange: inputChangeOption, title: props.title || props.placeholder, placeholder: props.placeholder, options: props.options })
                 :
-                    react_1.default.createElement("input", { name: props.name, value: valueString, onChange: inputChange, type: type, className: className, title: props.title || props.placeholder, placeholder: props.placeholder });
+                    type === "date" ?
+                        react_1.default.createElement("div", { className: className },
+                            react_1.default.createElement(react_datepicker_1.default, { value: valueString, className: "fix-control", onChange: inputChangeDate, dateFormat: dateFormat, title: props.title || props.placeholder, placeholder: props.placeholder, locale: locale, showMonthDropdown: true, showYearDropdown: true, dropdownMode: "select" }))
+                        :
+                            react_1.default.createElement("input", { name: props.name, value: valueString, onChange: inputChange, type: type, className: className, title: props.title || props.placeholder, placeholder: props.placeholder });
     return (react_1.default.createElement("div", { className: 'input-group Input-' + type },
         addonPrefixHtml,
         inputHtml,
