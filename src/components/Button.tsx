@@ -59,7 +59,7 @@ export const Button: React.SFC<ButtonProps> = (props) => {
     let element = event.currentTarget;
     let spanBefore = document.createElement('span');
     let confirmHtml = <Popover variant="warning" arrow="auto" for={element} >
-      <header>Confirmacion</header>
+      <header>Confirmación</header>
       <p className="mb-1">{confirmMessage}</p>
       <div className="text-center mt-1">
         <div className="Button-Confirm btn-group w-100">
