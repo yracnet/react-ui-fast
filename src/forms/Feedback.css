@@ -1,0 +1,17 @@
+
+.feedback {
+    display: block;
+    width: 100%;
+}
+
+.feedback.feedback-sm {
+    font-size: 0.9em;
+}
+
+.feedback-md {
+    font-size: 1em;
+}
+
+.feedback-lg {
+    font-size: 1.1em;
+}

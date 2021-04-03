@@ -1,17 +1,27 @@
-## Available Scripts
+# hiska-react-cc
 
-### `npm start`
+> Made with create-react-library
 
-Start dev server
+[![NPM](https://img.shields.io/npm/v/hiska-react-cc.svg)](https://www.npmjs.com/package/hiska-react-cc) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-### `npm test`
+## Install
 
-Start test
+```bash
+npm install hiska-react-cc
+```
+```bash
+yarn add hiska-react-cc
+```
 
-### `npm run build`
+This lib has simple components composer
 
-Create Build Standlone
 
-### `npm run compile`
+## Bootstrap GRID 
 
-Create Distribution Component
+
+
+
+
+## License
+
+MIT © [yracnet](https://github.com/yracnet)
