@@ -41,7 +41,7 @@ exports.Button = (props) => {
         let element = event.currentTarget;
         let spanBefore = document.createElement('span');
         let confirmHtml = react_1.default.createElement(Popover_1.Popover, { variant: "warning", arrow: "auto", for: element },
-            react_1.default.createElement("header", null, "Confirmacion"),
+            react_1.default.createElement("header", null, "Confirmaci\u00F3n"),
             react_1.default.createElement("p", { className: "mb-1" }, confirmMessage),
             react_1.default.createElement("div", { className: "text-center mt-1" },
                 react_1.default.createElement("div", { className: "Button-Confirm btn-group w-100" },

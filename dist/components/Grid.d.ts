@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import "./Grid.scss";
 export interface GridProps {
+    hide?: boolean;
     className?: string;
     cols: Array<number>;
     colsSm?: Array<number>;
